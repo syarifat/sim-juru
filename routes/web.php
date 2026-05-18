@@ -17,6 +17,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Khusus Role Admin
     Route::middleware(['role:Admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->names([
+        'index' => 'users.index',
+        'create' => 'users.create',
+        'store' => 'users.store',
+        'edit' => 'users.edit',
+        'update' => 'users.update',
+        'destroy' => 'users.destroy',
+        ]);
+
         Route::get('/tahun-ajaran', function () { return 'Menu Kelola Tahun Ajaran'; })->name('tahun-ajaran');
         Route::get('/kelas-mapel', function () { return 'Menu Kelola Kelas & Mapel'; })->name('kelas-mapel');
         Route::get('/jadwal', function () { return 'Menu Kelola Jadwal'; })->name('jadwal');
