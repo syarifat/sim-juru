@@ -142,11 +142,18 @@ class JurnalController extends Controller
 
         $bulan = $request->input('bulan', Carbon::now()->format('m'));
         $tahun = $request->input('tahun', Carbon::now()->format('Y'));
+        
+        $activeTahunAjaran = TahunAjaran::where('status_aktif', 'Aktif')->first();
 
         $jurnals = JurnalGuru::with(['jadwal.kelas', 'jadwal.mataPelajaran'])
             ->where('guru_pengisi_id', $guruId)
             ->whereMonth('tanggal_mengajar', $bulan)
             ->whereYear('tanggal_mengajar', $tahun)
+            ->whereHas('jadwal', function($q) use ($activeTahunAjaran) {
+                if ($activeTahunAjaran) {
+                    $q->where('tahun_ajaran_id', $activeTahunAjaran->id);
+                }
+            })
             ->orderBy('tanggal_mengajar', 'desc')
             ->orderBy(function($query) {
                 $query->select('jam_ke_mulai')

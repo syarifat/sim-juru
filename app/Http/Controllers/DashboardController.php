@@ -76,17 +76,32 @@ class DashboardController extends Controller
             }
             
         } elseif ($role === 'Kepala_Sekolah') {
-            $jurnalsHariIni = JurnalGuru::where('tanggal_mengajar', $today)->get();
-            $data['totalJurnalPending'] = $jurnalsHariIni->where('status_validasi', 'Pending')->count();
-            $data['totalJurnalDisetujui'] = $jurnalsHariIni->where('status_validasi', 'Disetujui')->count();
-            $data['totalJurnalRevisi'] = $jurnalsHariIni->where('status_validasi', 'Revisi')->count();
-            
-            // Jurnal yang belum divalidasi (Pending) untuk daftar singkat
-            $data['jurnalPendings'] = JurnalGuru::with(['guruPengisi', 'jadwal.kelas', 'jadwal.mataPelajaran'])
-                ->where('tanggal_mengajar', $today)
-                ->where('status_validasi', 'Pending')
-                ->limit(5)
-                ->get();
+            if ($activeTahunAjaran) {
+                $jurnalsHariIni = JurnalGuru::where('tanggal_mengajar', $today)
+                    ->whereHas('jadwal', function($q) use ($activeTahunAjaran) {
+                        $q->where('tahun_ajaran_id', $activeTahunAjaran->id);
+                    })
+                    ->get();
+                    
+                $data['totalJurnalPending'] = $jurnalsHariIni->where('status_validasi', 'Pending')->count();
+                $data['totalJurnalDisetujui'] = $jurnalsHariIni->where('status_validasi', 'Disetujui')->count();
+                $data['totalJurnalRevisi'] = $jurnalsHariIni->where('status_validasi', 'Revisi')->count();
+                
+                // Jurnal yang belum divalidasi (Pending) untuk daftar singkat
+                $data['jurnalPendings'] = JurnalGuru::with(['guruPengisi', 'jadwal.kelas', 'jadwal.mataPelajaran'])
+                    ->where('tanggal_mengajar', $today)
+                    ->where('status_validasi', 'Pending')
+                    ->whereHas('jadwal', function($q) use ($activeTahunAjaran) {
+                        $q->where('tahun_ajaran_id', $activeTahunAjaran->id);
+                    })
+                    ->limit(5)
+                    ->get();
+            } else {
+                $data['totalJurnalPending'] = 0;
+                $data['totalJurnalDisetujui'] = 0;
+                $data['totalJurnalRevisi'] = 0;
+                $data['jurnalPendings'] = collect();
+            }
         }
 
         return view('dashboard', $data);

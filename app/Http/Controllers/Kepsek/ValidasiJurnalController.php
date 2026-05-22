@@ -16,9 +16,15 @@ class ValidasiJurnalController extends Controller
         $guruId = $request->input('guru_id');
 
         $gurus = Guru::orderBy('nama_lengkap')->get();
+        $activeTahunAjaran = \App\Models\TahunAjaran::where('status_aktif', 'Aktif')->first();
 
         $query = JurnalGuru::with(['jadwal.kelas', 'jadwal.mataPelajaran', 'guruPengisi'])
-            ->where('tanggal_mengajar', $tanggal);
+            ->where('tanggal_mengajar', $tanggal)
+            ->whereHas('jadwal', function($q) use ($activeTahunAjaran) {
+                if ($activeTahunAjaran) {
+                    $q->where('tahun_ajaran_id', $activeTahunAjaran->id);
+                }
+            });
 
         if ($guruId) {
             $query->where('guru_pengisi_id', $guruId);
