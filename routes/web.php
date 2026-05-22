@@ -43,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('guru-pengganti/create', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'create'])->name('guru-pengganti.create');
         Route::post('guru-pengganti', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'store'])->name('guru-pengganti.store');
         Route::delete('guru-pengganti/{guru_pengganti}', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'destroy'])->name('guru-pengganti.destroy');
+
+        // Laporan Jurnal Routes
+        Route::get('laporan-jurnal', [\App\Http\Controllers\Admin\LaporanController::class, 'index'])->name('laporan.index');
     });
 
     // Khusus Role Guru
