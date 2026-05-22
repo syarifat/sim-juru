@@ -11,9 +11,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // Halaman Dashboard Utama (Bisa diakses semua role yang login)
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     // Khusus Role Admin
     Route::middleware(['role:Admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -50,13 +48,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Khusus Role Guru
     Route::middleware(['role:Guru'])->prefix('guru')->name('guru.')->group(function () {
-        Route::get('/jurnal', function () { return 'Menu Jadwal & Isi Jurnal Guru'; })->name('jurnal');
-        Route::get('/riwayat', function () { return 'Menu Riwayat Jurnal'; })->name('riwayat');
+        // Jurnal Routes
+        Route::get('jurnal', [\App\Http\Controllers\Guru\JurnalController::class, 'index'])->name('jurnal.index');
+        Route::get('jurnal/create/{jadwal}', [\App\Http\Controllers\Guru\JurnalController::class, 'create'])->name('jurnal.create');
+        Route::post('jurnal', [\App\Http\Controllers\Guru\JurnalController::class, 'store'])->name('jurnal.store');
+        Route::get('riwayat-jurnal', [\App\Http\Controllers\Guru\JurnalController::class, 'riwayat'])->name('jurnal.riwayat');
     });
 
     // Khusus Role Kepala Sekolah
     Route::middleware(['role:Kepala_Sekolah'])->prefix('kepsek')->name('kepsek.')->group(function () {
-        Route::get('/validasi', function () { return 'Menu Validasi Jurnal oleh Kepsek'; })->name('validasi');
+        // Validasi Jurnal Routes
+        Route::get('validasi-jurnal', [\App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'index'])->name('validasi.index');
+        Route::get('validasi-jurnal/{jurnal}/edit', [\App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'edit'])->name('validasi.edit');
+        Route::put('validasi-jurnal/{jurnal}', [\App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'update'])->name('validasi.update');
         Route::get('/laporan', function () { return 'Menu Laporan Jurnal'; })->name('laporan');
     });
 
