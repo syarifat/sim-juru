@@ -26,8 +26,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'destroy' => 'users.destroy',
         ]);
 
-        Route::get('/tahun-ajaran', function () { return 'Menu Kelola Tahun Ajaran'; })->name('tahun-ajaran');
-        Route::get('/kelas-mapel', function () { return 'Menu Kelola Kelas & Mapel'; })->name('kelas-mapel');
+        Route::resource('tahun-ajaran', \App\Http\Controllers\Admin\TahunAjaranController::class)->parameters(['tahun-ajaran' => 'tahunAjaran']);
+        Route::get('/kelas-mapel', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'index'])->name('kelas-mapel.index');
+        Route::post('/kelas', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'storeKelas'])->name('kelas.store');
+        Route::put('/kelas/{kelas}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'updateKelas'])->name('kelas.update');
+        Route::delete('/kelas/{kelas}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'destroyKelas'])->name('kelas.destroy');
+        
+        Route::post('/mapel', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'storeMapel'])->name('mapel.store');
+        Route::put('/mapel/{mapel}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'updateMapel'])->name('mapel.update');
+        Route::delete('/mapel/{mapel}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'destroyMapel'])->name('mapel.destroy');
         Route::get('/jadwal', function () { return 'Menu Kelola Jadwal'; })->name('jadwal');
         Route::get('/guru-pengganti', function () { return 'Menu Kelola Guru Pengganti'; })->name('guru-pengganti');
     });
