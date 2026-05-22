@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/mapel', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'storeMapel'])->name('mapel.store');
         Route::put('/mapel/{mapel}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'updateMapel'])->name('mapel.update');
         Route::delete('/mapel/{mapel}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'destroyMapel'])->name('mapel.destroy');
+        Route::resource('jam-pelajaran', \App\Http\Controllers\Admin\MasterJamPelajaranController::class)->parameters(['jam-pelajaran' => 'jam_pelajaran']);
         Route::get('/jadwal', function () { return 'Menu Kelola Jadwal'; })->name('jadwal');
         Route::get('/guru-pengganti', function () { return 'Menu Kelola Guru Pengganti'; })->name('guru-pengganti');
     });
