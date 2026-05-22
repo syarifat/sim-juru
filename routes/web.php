@@ -37,7 +37,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/mapel/{mapel}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'destroyMapel'])->name('mapel.destroy');
         Route::resource('jam-pelajaran', \App\Http\Controllers\Admin\MasterJamPelajaranController::class)->parameters(['jam-pelajaran' => 'jam_pelajaran']);
         Route::resource('jadwal', \App\Http\Controllers\Admin\JadwalController::class);
-        Route::get('/guru-pengganti', function () { return 'Menu Kelola Guru Pengganti'; })->name('guru-pengganti');
+
+        // Guru Pengganti Routes
+        Route::get('guru-pengganti', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'index'])->name('guru-pengganti.index');
+        Route::get('guru-pengganti/create', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'create'])->name('guru-pengganti.create');
+        Route::post('guru-pengganti', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'store'])->name('guru-pengganti.store');
+        Route::delete('guru-pengganti/{guru_pengganti}', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'destroy'])->name('guru-pengganti.destroy');
     });
 
     // Khusus Role Guru

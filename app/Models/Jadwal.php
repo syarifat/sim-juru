@@ -40,4 +40,9 @@ class Jadwal extends Model
     {
         return $this->hasMany(JurnalGuru::class);
     }
+
+    public function guruPenggantis()
+    {
+        return $this->hasMany(GuruPengganti::class);
+    }
 }
