@@ -45,14 +45,14 @@
                     $jurnal = $isFilled ? $jurnalsFilled->get($jadwal->id) : null;
                 @endphp
                 <div class="bg-white rounded-xl shadow-sm border {{ $isFilled ? 'border-emerald-200' : 'border-gray-200' }} overflow-hidden transition-all hover:shadow-md">
-                    <div class="p-5">
+                    <div class="p-4 sm:p-5">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             
-                            <div class="flex items-start space-x-4">
-                                <div class="bg-gray-50 rounded-lg p-3 text-center min-w-[100px] border border-gray-100">
-                                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Jam Ke</div>
-                                    <div class="text-xl font-extrabold text-emerald-600">{{ $jadwal->jam_ke_mulai }} - {{ $jadwal->jam_ke_selesai }}</div>
-                                    <div class="text-xs text-gray-400 mt-1 font-medium">{{ $waktuMulaiStr }} s/d {{ $waktuSelesaiStr }}</div>
+                            <div class="flex items-start space-x-3 sm:space-x-4">
+                                <div class="bg-gray-50 rounded-lg p-2 sm:p-3 text-center min-w-[80px] sm:min-w-[100px] border border-gray-100 flex-shrink-0">
+                                    <div class="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider mb-0.5 sm:mb-1">Jam Ke</div>
+                                    <div class="text-base sm:text-xl font-extrabold text-emerald-600">{{ $jadwal->jam_ke_mulai }} - {{ $jadwal->jam_ke_selesai }}</div>
+                                    <div class="text-[9px] sm:text-xs text-gray-400 mt-0.5 sm:mt-1 font-medium">{{ $waktuMulaiStr }} s/d {{ $waktuSelesaiStr }}</div>
                                 </div>
                                 <div>
                                     <div class="flex items-center space-x-2 mb-1">

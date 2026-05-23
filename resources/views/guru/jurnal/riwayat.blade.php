@@ -99,46 +99,49 @@
         </div>
 
         {{-- Mobile Card View --}}
-        <div class="md:hidden space-y-3">
+        <div class="md:hidden divide-y divide-gray-100 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             @forelse($jurnals as $jurnal)
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="flex items-center justify-between px-4 pt-4 pb-2">
-                        <span class="text-xs font-bold text-gray-500">{{ \Carbon\Carbon::parse($jurnal->tanggal_mengajar)->translatedFormat('d M Y') }}</span>
+                <div class="p-3 hover:bg-emerald-50/20 transition-colors flex flex-col gap-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-emerald-700 bg-emerald-50/80 px-2 py-0.5 rounded">{{ \Carbon\Carbon::parse($jurnal->tanggal_mengajar)->translatedFormat('d M Y') }}</span>
                         @if($jurnal->status_validasi === 'Disetujui')
-                            <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold">Disetujui</span>
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-[10px] font-extrabold uppercase tracking-wider">Disetujui</span>
                         @elseif($jurnal->status_validasi === 'Revisi')
-                            <span class="px-2.5 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold">Revisi</span>
+                            <span class="px-2 py-0.5 bg-red-100 text-red-700 rounded text-[10px] font-extrabold uppercase tracking-wider">Revisi</span>
                         @else
-                            <span class="px-2.5 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">Pending</span>
+                            <span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-[10px] font-extrabold uppercase tracking-wider">Pending</span>
                         @endif
                     </div>
-                    <div class="px-4 pb-2">
-                        <div class="font-bold text-emerald-600 text-base">{{ $jurnal->jadwal->kelas->nama_kelas }}</div>
-                        <div class="text-sm text-gray-500">{{ $jurnal->jadwal->mataPelajaran->nama_mapel }} &bull; Jam {{ $jurnal->jadwal->jam_ke_mulai }}-{{ $jurnal->jadwal->jam_ke_selesai }}</div>
+                    <div>
+                        <div class="text-xs text-gray-550">
+                            <span class="font-extrabold text-emerald-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</span> &bull; 
+                            <span class="font-bold text-gray-800">{{ $jurnal->jadwal->mataPelajaran->nama_mapel }}</span> &bull; 
+                            <span class="font-semibold text-gray-500">Jam {{ $jurnal->jadwal->jam_ke_mulai }}-{{ $jurnal->jadwal->jam_ke_selesai }}</span>
+                        </div>
                     </div>
-                    <div class="px-4 pb-3 border-t border-gray-50 pt-2">
-                        <p class="text-sm text-gray-700">{{ $jurnal->materi_pembelajaran }}</p>
+                    <div class="text-xs text-gray-700 bg-gray-50 p-2.5 rounded border border-gray-100 leading-relaxed font-medium">
+                        <p>{{ $jurnal->materi_pembelajaran }}</p>
                         @if($jurnal->catatan_tambahan)
-                            <p class="text-xs text-gray-400 mt-1 italic">{{ $jurnal->catatan_tambahan }}</p>
+                            <p class="text-[11px] text-gray-400 mt-1 italic">Catatan: {{ $jurnal->catatan_tambahan }}</p>
                         @endif
                     </div>
                     @if($jurnal->catatan_kepsek)
-                        <div class="mx-4 mb-3 text-xs p-2 bg-red-50 border border-red-100 rounded text-red-600 italic">
+                        <div class="text-[11px] p-2 bg-red-50 border border-red-100 rounded text-red-600 italic">
                             <strong>Catatan Kepsek:</strong> {{ $jurnal->catatan_kepsek }}
                         </div>
                     @endif
                     @if($jurnal->status_validasi === 'Revisi')
-                        <div class="px-4 pb-4">
-                            <a href="{{ route('guru.jurnal.edit', $jurnal) }}" class="block w-full text-center px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-bold hover:bg-emerald-700 transition-colors">
+                        <div class="pt-1">
+                            <a href="{{ route('guru.jurnal.edit', $jurnal) }}" class="block w-full text-center py-1.5 bg-emerald-600 text-white rounded text-xs font-bold hover:bg-emerald-700 transition-colors">
                                 Perbaiki Jurnal
                             </a>
                         </div>
                     @endif
                 </div>
             @empty
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-10 text-center">
+                <div class="p-8 text-center text-gray-400 text-sm">
                     <svg class="w-12 h-12 mx-auto text-gray-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    <p class="text-gray-500 font-medium">Belum ada riwayat jurnal bulan ini.</p>
+                    <p class="font-medium">Belum ada riwayat jurnal bulan ini.</p>
                 </div>
             @endforelse
         </div>

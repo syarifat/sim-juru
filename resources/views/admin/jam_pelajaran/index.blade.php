@@ -77,32 +77,28 @@
 
             <div class="block md:hidden divide-y divide-gray-100">
                 @forelse($jamPelajarans as $jam)
-                    <div class="p-4 space-y-3 bg-white hover:bg-gray-50/50">
-                        <div class="flex items-center justify-between border-b border-gray-50 pb-2">
-                            <span class="text-xs font-semibold px-2 py-1 rounded bg-emerald-50 text-emerald-700">{{ $jam->hari }}</span>
-                            <span class="text-xs font-bold">{{ $jam->jam_ke == 0 ? 'Istirahat' : 'Jam Ke-' . $jam->jam_ke }}</span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <p class="text-xs text-gray-400 uppercase">Waktu</p>
-                                <p class="text-sm font-semibold text-gray-800">{{ \Carbon\Carbon::parse($jam->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jam->jam_selesai)->format('H:i') }}</p>
+                    <div class="p-3 bg-white hover:bg-emerald-50/20 transition-colors flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">{{ $jam->hari }}</span>
+                                <span class="text-xs font-bold text-emerald-600">{{ $jam->jam_ke == 0 ? 'Istirahat' : 'Jam Ke-' . $jam->jam_ke }}</span>
                             </div>
-                            <div>
-                                <p class="text-xs text-gray-400 uppercase">Keterangan</p>
-                                <p class="text-sm text-gray-800">{{ $jam->keterangan ?? '-' }}</p>
-                            </div>
+                            <span class="text-xs font-bold text-gray-700 bg-gray-50 px-2 py-0.5 rounded border border-gray-100">{{ \Carbon\Carbon::parse($jam->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jam->jam_selesai)->format('H:i') }}</span>
                         </div>
-                        <div class="flex justify-end space-x-4 pt-2">
-                            <a href="{{ route('admin.jam-pelajaran.edit', $jam->id) }}" class="text-sm font-semibold text-amber-600">Edit</a>
-                            <form action="{{ route('admin.jam-pelajaran.destroy', $jam->id) }}" method="POST" onsubmit="return confirm('Yakin?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-sm font-semibold text-red-600">Hapus</button>
-                            </form>
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="text-gray-500">Keterangan: <span class="font-semibold text-gray-700">{{ $jam->keterangan ?? '-' }}</span></span>
+                            <div class="flex items-center gap-3">
+                                <a href="{{ route('admin.jam-pelajaran.edit', $jam->id) }}" class="text-amber-600 hover:text-amber-700 font-semibold">Edit</a>
+                                <form action="{{ route('admin.jam-pelajaran.destroy', $jam->id) }}" method="POST" onsubmit="return confirm('Yakin?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-700 font-semibold">Hapus</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @empty
-                    <div class="p-8 text-center text-gray-400 text-sm">Data jam pelajaran tidak ditemukan.</div>
+                    <div class="p-6 text-center text-gray-400 text-sm">Data jam pelajaran tidak ditemukan.</div>
                 @endforelse
             </div>
 

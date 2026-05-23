@@ -81,39 +81,32 @@
             </div>
 
             <div class="block md:hidden divide-y divide-gray-100">
-                <div class="p-3 bg-gray-50 text-xs text-center text-gray-500 border-b border-gray-100">
-                    Menampilkan data untuk tanggal: <span class="font-bold text-emerald-600">{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d M Y') }}</span>
+                <div class="p-2.5 bg-gray-50 text-xs text-center text-gray-500 border-b border-gray-100">
+                    Data tanggal: <span class="font-bold text-emerald-600">{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d M Y') }}</span>
                 </div>
                 @forelse($penggantis as $pengganti)
-                    <div class="p-4 space-y-3 bg-white hover:bg-gray-50/50">
-                        <div class="flex items-center justify-between border-b border-gray-50 pb-2">
-                            <span class="text-xs font-semibold px-2 py-1 rounded bg-emerald-50 text-emerald-700">{{ $pengganti->jadwal->kelas->nama_kelas }}</span>
-                            <span class="text-xs font-bold text-gray-500">Jam {{ $pengganti->jadwal->jam_ke_mulai }} - {{ $pengganti->jadwal->jam_ke_selesai }}</span>
-                        </div>
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase">Mata Pelajaran</p>
-                            <p class="text-sm font-semibold text-gray-800">{{ $pengganti->jadwal->mataPelajaran->nama_mapel }}</p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <p class="text-xs text-gray-400 uppercase">Guru Asli</p>
-                                <p class="text-sm text-red-600 line-through decoration-red-300">{{ $pengganti->jadwal->guru->nama_lengkap }}</p>
+                    <div class="p-3 bg-white hover:bg-emerald-50/20 transition-colors flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">{{ $pengganti->jadwal->kelas->nama_kelas }}</span>
+                                <span class="text-xs text-gray-500 font-bold">Jam {{ $pengganti->jadwal->jam_ke_mulai }}-{{ $pengganti->jadwal->jam_ke_selesai }}</span>
                             </div>
-                            <div>
-                                <p class="text-xs text-emerald-600 font-bold uppercase">Pengganti</p>
-                                <p class="text-sm text-emerald-700 font-bold">{{ $pengganti->guruPengganti->nama_lengkap }}</p>
-                            </div>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50/50 px-2 py-0.5 rounded">{{ $pengganti->jadwal->mataPelajaran->nama_mapel }}</span>
                         </div>
-                        <div class="flex justify-end space-x-4 pt-2">
-                            <form action="{{ route('admin.guru-pengganti.destroy', $pengganti->id) }}" method="POST" onsubmit="return confirm('Batalkan guru pengganti ini?')">
+                        <div class="flex items-center justify-between pt-1.5 border-t border-gray-50 text-xs">
+                            <div class="flex flex-col gap-0.5">
+                                <div class="text-[10px] text-gray-400">Guru: <span class="text-red-500 line-through decoration-red-300 font-medium">{{ $pengganti->jadwal->guru->nama_lengkap }}</span></div>
+                                <div class="text-xs font-bold text-emerald-700">Inval: {{ $pengganti->guruPengganti->nama_lengkap }}</div>
+                            </div>
+                            <form action="{{ route('admin.guru-pengganti.destroy', $pengganti->id) }}" method="POST" onsubmit="return confirm('Batalkan?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-sm font-semibold text-red-600">Batal Penggantian</button>
+                                <button type="submit" class="px-2 py-1 text-xs font-bold bg-red-50 text-red-600 rounded border border-red-100 hover:bg-red-100 transition-colors">Batal</button>
                             </form>
                         </div>
                     </div>
                 @empty
-                    <div class="p-8 text-center text-gray-400 text-sm">Tidak ada guru pengganti.</div>
+                    <div class="p-6 text-center text-gray-400 text-sm">Tidak ada guru pengganti.</div>
                 @endforelse
             </div>
         </div>

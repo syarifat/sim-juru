@@ -127,33 +127,38 @@
         </div>
 
         {{-- Mobile Card View --}}
-        <div class="md:hidden space-y-3">
+        <div class="md:hidden divide-y divide-gray-100 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             @forelse($jurnals as $jurnal)
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-2">
+                <div class="p-3 hover:bg-emerald-50/20 transition-colors flex flex-col gap-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-gray-500">{{ \Carbon\Carbon::parse($jurnal->tanggal_mengajar)->translatedFormat('d M Y') }}</span>
+                        <span class="text-xs font-bold text-emerald-700 bg-emerald-50/80 px-2 py-0.5 rounded">{{ \Carbon\Carbon::parse($jurnal->tanggal_mengajar)->translatedFormat('d M Y') }}</span>
                         @if($jurnal->status_validasi === 'Disetujui')
-                            <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold">Disetujui</span>
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-[10px] font-extrabold uppercase tracking-wider">Disetujui</span>
                         @elseif($jurnal->status_validasi === 'Revisi')
-                            <span class="px-2.5 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold">Revisi</span>
+                            <span class="px-2 py-0.5 bg-red-100 text-red-700 rounded text-[10px] font-extrabold uppercase tracking-wider">Revisi</span>
                         @else
-                            <span class="px-2.5 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">Pending</span>
+                            <span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-[10px] font-extrabold uppercase tracking-wider">Pending</span>
                         @endif
                     </div>
                     <div>
-                        <div class="text-sm font-bold text-gray-800">{{ $jurnal->guruPengisi->nama_lengkap }}</div>
-                        @if($jurnal->guru_pengisi_id !== $jurnal->jadwal->guru_id)
-                            <span class="text-[10px] px-2 py-0.5 bg-amber-100 text-amber-800 rounded font-bold">Pengganti</span>
-                        @endif
+                        <div class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
+                            <span>{{ $jurnal->guruPengisi->nama_lengkap }}</span>
+                            @if($jurnal->guru_pengisi_id !== $jurnal->jadwal->guru_id)
+                                <span class="text-[9px] px-1.5 py-0.2 bg-amber-100 text-amber-800 rounded font-extrabold uppercase tracking-wider">Inval</span>
+                            @endif
+                        </div>
+                        <div class="text-[11px] text-gray-500 mt-0.5">
+                            <span class="font-bold text-emerald-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</span> &bull; 
+                            <span class="font-medium text-gray-700">{{ $jurnal->jadwal->mataPelajaran->nama_mapel }}</span> &bull; 
+                            <span>Jam {{ $jurnal->jadwal->jam_ke_mulai }}-{{ $jurnal->jadwal->jam_ke_selesai }}</span>
+                        </div>
                     </div>
-                    <div class="text-sm text-emerald-600 font-bold">{{ $jurnal->jadwal->kelas->nama_kelas }} &bull; {{ $jurnal->jadwal->mataPelajaran->nama_mapel }}</div>
-                    <div class="text-xs text-gray-500">Jam ke-{{ $jurnal->jadwal->jam_ke_mulai }} - {{ $jurnal->jadwal->jam_ke_selesai }}</div>
-                    <div class="text-sm text-gray-700 pt-1 border-t border-gray-50">{{ Str::limit($jurnal->materi_pembelajaran, 80) }}</div>
+                    <div class="text-[11px] text-gray-600 bg-gray-50 p-2 rounded border border-gray-100 leading-relaxed font-medium">
+                        {{ Str::limit($jurnal->materi_pembelajaran, 120) }}
+                    </div>
                 </div>
             @empty
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-10 text-center">
-                    <p class="text-gray-500 font-medium">Belum ada data jurnal.</p>
-                </div>
+                <div class="p-6 text-center text-gray-400 text-sm">Belum ada data jurnal.</div>
             @endforelse
         </div>
     </div>

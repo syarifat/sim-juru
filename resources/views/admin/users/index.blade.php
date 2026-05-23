@@ -83,43 +83,39 @@
 
             <div class="block md:hidden divide-y divide-gray-100">
                 @forelse($users as $index => $user)
-                    <div class="p-4 space-y-3 bg-white hover:bg-gray-50/50">
+                    <div class="p-3 bg-white hover:bg-emerald-50/20 transition-colors flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-mono text-gray-400">#{{ $users->firstItem() + $index }}</span>
-                            <span class="px-2 py-0.5 text-xs font-semibold rounded-full 
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-mono text-gray-400">#{{ $users->firstItem() + $index }}</span>
+                                <span class="text-sm font-bold text-emerald-600">{{ $user->username }}</span>
+                            </div>
+                            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full 
                                 {{ $user->role === 'Admin' ? 'bg-purple-50 text-purple-700 border border-purple-100' : '' }}
                                 {{ $user->role === 'Kepala_Sekolah' ? 'bg-amber-50 text-amber-700 border border-amber-100' : '' }}
                                 {{ $user->role === 'Guru' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : '' }}">
                                 {{ str_replace('_', ' ', $user->role) }}
                             </span>
                         </div>
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase tracking-wider">Username</p>
-                            <p class="text-sm font-bold text-emerald-600">{{ $user->username }}</p>
-                        </div>
                         @if($user->role !== 'Admin')
-                        <div class="grid grid-cols-2 gap-2 pt-1">
-                            <div>
-                                <p class="text-xs text-gray-400">Nama Lengkap</p>
-                                <p class="text-sm font-medium text-gray-800">{{ $user->guru->nama_lengkap ?? '-' }}</p>
+                            <div class="text-xs text-gray-650 font-medium">
+                                <span class="font-bold text-gray-800">{{ $user->guru->nama_lengkap ?? '-' }}</span>
+                                <span class="text-gray-400 ml-1">| NIP: <span class="font-mono">{{ $user->guru->nip ?? '-' }}</span></span>
                             </div>
-                            <div>
-                                <p class="text-xs text-gray-400">NIP</p>
-                                <p class="text-sm font-mono text-gray-700">{{ $user->guru->nip ?? '-' }}</p>
-                            </div>
-                        </div>
                         @endif
-                        <div class="flex items-center justify-end space-x-4 pt-2 border-t border-gray-50">
-                            <a href="{{ route('admin.users.edit', $user->id) }}" class="text-sm font-semibold text-amber-600">Edit</a>
-                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-sm font-semibold text-red-600">Hapus</button>
-                            </form>
+                        <div class="flex items-center justify-between pt-1.5 border-t border-gray-55 text-xs">
+                            <span class="text-gray-400 font-medium">Aksi</span>
+                            <div class="flex items-center gap-3">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-amber-600 hover:text-amber-700 font-semibold">Edit</a>
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-700 font-semibold">Hapus</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @empty
-                    <div class="p-8 text-center text-gray-400 text-sm">Data pengguna tidak ditemukan.</div>
+                    <div class="p-6 text-center text-gray-400 text-sm">Data pengguna tidak ditemukan.</div>
                 @endforelse
             </div>
 
