@@ -14,9 +14,9 @@
             <!-- Kolom Detail Jurnal -->
             <div class="md:col-span-2 space-y-6">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="bg-blue-50 border-b border-blue-100 p-6 flex justify-between items-center">
+                    <div class="bg-emerald-50 border-b border-emerald-100 p-6 flex justify-between items-center">
                         <div>
-                            <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Informasi Jurnal</div>
+                            <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">Informasi Jurnal</div>
                             <h3 class="text-lg font-bold text-gray-800">{{ \Carbon\Carbon::parse($jurnal->tanggal_mengajar)->translatedFormat('l, d F Y') }}</h3>
                         </div>
                         <div class="text-right">
@@ -82,10 +82,10 @@
 
                         <div>
                             <label for="catatan_kepsek" class="block text-sm font-bold text-gray-700 mb-2">Catatan Kepala Sekolah</label>
-                            <textarea name="catatan_kepsek" id="catatan_kepsek" rows="4" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-sm" placeholder="Berikan catatan jika ada perbaikan atau apresiasi...">{{ old('catatan_kepsek', $jurnal->catatan_kepsek) }}</textarea>
+                            <textarea name="catatan_kepsek" id="catatan_kepsek" rows="4" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm" placeholder="Berikan catatan jika ada perbaikan atau apresiasi...">{{ old('catatan_kepsek', $jurnal->catatan_kepsek) }}</textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm transition-colors flex items-center justify-center">
+                        <button type="submit" class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-sm transition-colors flex items-center justify-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             Simpan Validasi
                         </button>

@@ -18,11 +18,11 @@
             <form method="GET" action="{{ route('kepsek.validasi.index') }}" class="flex flex-col sm:flex-row gap-4 items-end">
                 <div class="w-full sm:w-1/3">
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Tanggal</label>
-                    <input type="date" name="tanggal" value="{{ $tanggal }}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                    <input type="date" name="tanggal" value="{{ $tanggal }}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                 </div>
                 <div class="w-full sm:w-1/3">
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Guru</label>
-                    <select name="guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                    <select name="guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                         <option value="">Semua Guru</option>
                         @foreach($gurus as $guru)
                             <option value="{{ $guru->id }}" {{ $guruId == $guru->id ? 'selected' : '' }}>{{ $guru->nama_lengkap }}</option>
@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div class="w-full sm:w-auto">
-                    <button type="submit" class="w-full px-6 py-2 bg-blue-50 text-blue-700 font-bold rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
+                    <button type="submit" class="w-full px-6 py-2 bg-emerald-50 text-emerald-700 font-bold rounded-lg border border-emerald-200 hover:bg-emerald-100 transition-colors">
                         Terapkan Filter
                     </button>
                 </div>
@@ -59,7 +59,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="font-bold text-blue-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</div>
+                                    <div class="font-bold text-emerald-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</div>
                                     <div class="text-xs text-gray-500">{{ $jurnal->jadwal->mataPelajaran->nama_mapel }}</div>
                                 </td>
                                 <td class="px-6 py-4 font-bold text-center">
@@ -75,7 +75,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    <a href="{{ route('kepsek.validasi.edit', $jurnal) }}" class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 font-semibold rounded text-xs transition-colors">
+                                    <a href="{{ route('kepsek.validasi.edit', $jurnal) }}" class="inline-flex items-center px-3 py-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:text-emerald-700 font-semibold rounded text-xs transition-colors">
                                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                         {{ $jurnal->status_validasi === 'Pending' ? 'Validasi' : 'Lihat / Ubah' }}
                                     </a>

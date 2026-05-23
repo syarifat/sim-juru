@@ -7,7 +7,7 @@
                 <p class="text-sm text-gray-500">Kelola jadwal jam pelajaran dan waktu istirahat.</p>
             </div>
             <div>
-                <a href="{{ route('admin.jam-pelajaran.create') }}" class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
+                <a href="{{ route('admin.jam-pelajaran.create') }}" class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Tambah Jam
                 </a>
@@ -23,7 +23,7 @@
         <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
             <form method="GET" action="{{ route('admin.jam-pelajaran.index') }}" class="flex gap-2 w-full sm:w-1/3">
                 <div class="relative flex-1">
-                    <select name="hari" class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500" onchange="this.form.submit()">
+                    <select name="hari" class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500" onchange="this.form.submit()">
                         <option value="">Semua Hari</option>
                         @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $h)
                             <option value="{{ $h }}" {{ $hariFilter == $h ? 'selected' : '' }}>{{ $h }}</option>
@@ -50,7 +50,7 @@
                         @forelse($jamPelajarans as $jam)
                             <tr class="hover:bg-gray-50/70 transition-colors">
                                 <td class="px-6 py-4 font-medium">{{ $jam->hari }}</td>
-                                <td class="px-6 py-4 font-semibold text-blue-600">
+                                <td class="px-6 py-4 font-semibold text-emerald-600">
                                     {{ $jam->jam_ke == 0 ? 'Istirahat' : $jam->jam_ke }}
                                 </td>
                                 <td class="px-6 py-4">
@@ -79,7 +79,7 @@
                 @forelse($jamPelajarans as $jam)
                     <div class="p-4 space-y-3 bg-white hover:bg-gray-50/50">
                         <div class="flex items-center justify-between border-b border-gray-50 pb-2">
-                            <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-50 text-blue-700">{{ $jam->hari }}</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded bg-emerald-50 text-emerald-700">{{ $jam->hari }}</span>
                             <span class="text-xs font-bold">{{ $jam->jam_ke == 0 ? 'Istirahat' : 'Jam Ke-' . $jam->jam_ke }}</span>
                         </div>
                         <div class="grid grid-cols-2 gap-2">

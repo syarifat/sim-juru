@@ -15,11 +15,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                     <div>
                         <label for="tanggal" class="block text-sm font-semibold text-gray-700 mb-1">Tanggal Mengajar <span class="text-red-500">*</span></label>
-                        <input type="date" name="tanggal" id="tanggal" value="{{ $tanggal }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow" required>
+                        <input type="date" name="tanggal" id="tanggal" value="{{ $tanggal }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
                     </div>
                     <div>
                         <label for="kelas_id" class="block text-sm font-semibold text-gray-700 mb-1">Pilih Kelas <span class="text-red-500">*</span></label>
-                        <select name="kelas_id" id="kelas_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow" required>
+                        <select name="kelas_id" id="kelas_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
                             <option value="">-- Pilih Kelas --</option>
                             @foreach($kelases as $kelas)
                                 <option value="{{ $kelas->id }}" {{ $kelasId == $kelas->id ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
@@ -46,7 +46,7 @@
                         <input type="hidden" name="tanggal" value="{{ $tanggal }}">
                         <input type="hidden" name="kelas_id" value="{{ $kelasId }}">
 
-                        <div class="mb-4 p-3 bg-blue-50 text-blue-700 rounded-lg text-sm border border-blue-100 flex items-center">
+                        <div class="mb-4 p-3 bg-emerald-50 text-emerald-700 rounded-lg text-sm border border-emerald-100 flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             Jadwal Hari <strong>{{ $namaHari }}</strong>, Tanggal <strong>{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</strong>
                         </div>
@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="md:col-span-4">
                                         <label class="block text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">Pilih Guru Pengganti</label>
-                                        <select name="penggantis[{{ $jadwal->id }}][guru_pengganti_id]" class="w-full px-3 py-2 text-sm border {{ $penggantiId ? 'border-amber-400 focus:ring-amber-500' : 'border-gray-300 focus:ring-blue-500' }} rounded-lg focus:ring-2 focus:outline-none transition-shadow">
+                                        <select name="penggantis[{{ $jadwal->id }}][guru_pengganti_id]" class="w-full px-3 py-2 text-sm border {{ $penggantiId ? 'border-amber-400 focus:ring-amber-500' : 'border-gray-300 focus:ring-emerald-500' }} rounded-lg focus:ring-2 focus:outline-none transition-shadow">
                                             <option value="">-- Tetap Guru Asli --</option>
                                             @foreach($gurus as $guru)
                                                 @if($guru->id !== $jadwal->guru_id)
@@ -96,7 +96,7 @@
                             <a href="{{ route('admin.guru-pengganti.index', ['tanggal' => $tanggal]) }}" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                                 Batal
                             </a>
-                            <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm transition-colors">
+                            <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 shadow-sm transition-colors">
                                 Simpan Perubahan Pengganti
                             </button>
                         </div>

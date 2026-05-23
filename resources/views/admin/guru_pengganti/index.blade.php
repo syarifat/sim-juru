@@ -7,7 +7,7 @@
                 <p class="text-sm text-gray-500">Kelola daftar guru pengganti (inval) pada tanggal tertentu.</p>
             </div>
             <div>
-                <a href="{{ route('admin.guru-pengganti.create', ['tanggal' => $tanggal]) }}" class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
+                <a href="{{ route('admin.guru-pengganti.create', ['tanggal' => $tanggal]) }}" class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Atur Guru Pengganti
                 </a>
@@ -28,10 +28,10 @@
         <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
             <form method="GET" action="{{ route('admin.guru-pengganti.index') }}" class="flex items-center space-x-3">
                 <label for="tanggal" class="text-sm font-bold text-gray-700">Pilih Tanggal:</label>
-                <input type="date" name="tanggal" id="tanggal" value="{{ $tanggal }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500" onchange="this.form.submit()">
+                <input type="date" name="tanggal" id="tanggal" value="{{ $tanggal }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500" onchange="this.form.submit()">
             </form>
             <div class="text-sm text-gray-500 hidden sm:block">
-                Menampilkan data untuk tanggal: <span class="font-bold text-blue-600">{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d F Y') }}</span>
+                Menampilkan data untuk tanggal: <span class="font-bold text-emerald-600">{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d F Y') }}</span>
             </div>
         </div>
 
@@ -82,12 +82,12 @@
 
             <div class="block md:hidden divide-y divide-gray-100">
                 <div class="p-3 bg-gray-50 text-xs text-center text-gray-500 border-b border-gray-100">
-                    Menampilkan data untuk tanggal: <span class="font-bold text-blue-600">{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d M Y') }}</span>
+                    Menampilkan data untuk tanggal: <span class="font-bold text-emerald-600">{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d M Y') }}</span>
                 </div>
                 @forelse($penggantis as $pengganti)
                     <div class="p-4 space-y-3 bg-white hover:bg-gray-50/50">
                         <div class="flex items-center justify-between border-b border-gray-50 pb-2">
-                            <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-50 text-blue-700">{{ $pengganti->jadwal->kelas->nama_kelas }}</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded bg-emerald-50 text-emerald-700">{{ $pengganti->jadwal->kelas->nama_kelas }}</span>
                             <span class="text-xs font-bold text-gray-500">Jam {{ $pengganti->jadwal->jam_ke_mulai }} - {{ $pengganti->jadwal->jam_ke_selesai }}</span>
                         </div>
                         <div>

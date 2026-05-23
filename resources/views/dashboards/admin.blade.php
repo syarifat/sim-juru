@@ -1,7 +1,7 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Stat Card 1 -->
     <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-shadow">
-        <div class="bg-blue-50 text-blue-600 p-4 rounded-xl">
+        <div class="bg-emerald-50 text-emerald-600 p-4 rounded-xl">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
         </div>
         <div>
@@ -46,7 +46,7 @@
 
 <div class="mt-8 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
     <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
-        <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         Informasi Sistem
     </h3>
     <div class="prose max-w-none text-gray-600 text-sm">

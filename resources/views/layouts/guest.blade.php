@@ -13,7 +13,7 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
         <div>
             <a href="/">
-                <h1 class="text-4xl font-extrabold text-blue-700 tracking-wider">SIMJURU</h1>
+                <h1 class="text-4xl font-extrabold text-emerald-700 tracking-wider">SIMJURU</h1>
             </a>
         </div>
 

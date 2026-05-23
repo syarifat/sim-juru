@@ -12,7 +12,7 @@
             <form method="GET" action="{{ route('guru.jurnal.riwayat') }}" class="flex flex-wrap gap-3 items-end">
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Bulan</label>
-                    <select name="bulan" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500" onchange="this.form.submit()">
+                    <select name="bulan" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500" onchange="this.form.submit()">
                         @foreach(range(1, 12) as $m)
                             <option value="{{ str_pad($m, 2, '0', STR_PAD_LEFT) }}" {{ $bulan == str_pad($m, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
                                 {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
@@ -22,7 +22,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Tahun</label>
-                    <select name="tahun" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500" onchange="this.form.submit()">
+                    <select name="tahun" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500" onchange="this.form.submit()">
                         @for($y = date('Y'); $y >= date('Y') - 5; $y--)
                             <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>{{ $y }}</option>
                         @endfor
@@ -50,7 +50,7 @@
                                     {{ \Carbon\Carbon::parse($jurnal->tanggal_mengajar)->translatedFormat('d M Y') }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="font-bold text-blue-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</div>
+                                    <div class="font-bold text-emerald-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</div>
                                     <div class="text-xs text-gray-500">{{ $jurnal->jadwal->mataPelajaran->nama_mapel }}</div>
                                 </td>
                                 <td class="px-6 py-4 text-center font-bold">
@@ -79,7 +79,7 @@
                                         @endif
 
                                         @if($jurnal->status_validasi === 'Revisi')
-                                            <a href="{{ route('guru.jurnal.edit', $jurnal) }}" class="mt-2 w-full text-center px-3 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 border border-blue-200 rounded text-xs font-bold transition-colors">
+                                            <a href="{{ route('guru.jurnal.edit', $jurnal) }}" class="mt-2 w-full text-center px-3 py-1 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:text-emerald-700 border border-emerald-200 rounded text-xs font-bold transition-colors">
                                                 Perbaiki Jurnal
                                             </a>
                                         @endif

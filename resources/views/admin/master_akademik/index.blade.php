@@ -33,8 +33,8 @@
 
                     <form action="{{ route('admin.kelas.store') }}" method="POST" class="flex gap-2 mb-6">
                         @csrf
-                        <input type="text" name="nama_kelas" placeholder="Tambah kelas baru..." class="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
+                        <input type="text" name="nama_kelas" placeholder="Tambah kelas baru..." class="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                        <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
                             Tambah
                         </button>
                     </form>
@@ -89,8 +89,8 @@
 
                     <form action="{{ route('admin.mapel.store') }}" method="POST" class="flex gap-2 mb-6">
                         @csrf
-                        <input type="text" name="nama_mapel" placeholder="Tambah mata pelajaran..." class="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
+                        <input type="text" name="nama_mapel" placeholder="Tambah mata pelajaran..." class="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                        <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
                             Tambah
                         </button>
                     </form>
@@ -143,11 +143,11 @@
                     @method('PUT')
                     <div class="mb-4">
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Kelas</label>
-                        <input type="text" name="nama_kelas" x-model="currentKelasNama" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                        <input type="text" name="nama_kelas" x-model="currentKelasNama" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
                     </div>
                     <div class="flex justify-end space-x-3 mt-6">
                         <button type="button" @click="editKelasOpen = false" class="px-4 py-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">Batal</button>
-                        <button type="submit" class="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">Simpan Perubahan</button>
+                        <button type="submit" class="px-4 py-2 text-sm text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>
@@ -167,11 +167,11 @@
                     @method('PUT')
                     <div class="mb-4">
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Mata Pelajaran</label>
-                        <input type="text" name="nama_mapel" x-model="currentMapelNama" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                        <input type="text" name="nama_mapel" x-model="currentMapelNama" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
                     </div>
                     <div class="flex justify-end space-x-3 mt-6">
                         <button type="button" @click="editMapelOpen = false" class="px-4 py-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">Batal</button>
-                        <button type="submit" class="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">Simpan Perubahan</button>
+                        <button type="submit" class="px-4 py-2 text-sm text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>

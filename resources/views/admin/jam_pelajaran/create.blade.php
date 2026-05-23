@@ -42,7 +42,7 @@
                 <div class="space-y-6">
                     <div class="w-full md:w-1/3">
                         <label for="hari" class="block text-sm font-semibold text-gray-700 mb-1">Pilih Hari <span class="text-red-500">*</span></label>
-                        <select name="hari" id="hari" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow" required>
+                        <select name="hari" id="hari" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
                             <option value="">-- Pilih Hari --</option>
                             @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $hari)
                                 <option value="{{ $hari }}" {{ old('hari') == $hari ? 'selected' : '' }}>{{ $hari }}</option>
@@ -73,22 +73,22 @@
                                     
                                     <div class="md:col-span-2 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke-</label>
-                                        <input type="number" x-bind:name="`jam[${index}][jam_ke]`" x-model="row.jam_ke" min="0" placeholder="0 = Istirahat" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                        <input type="number" x-bind:name="`jam[${index}][jam_ke]`" x-model="row.jam_ke" min="0" placeholder="0 = Istirahat" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                     </div>
                                     
                                     <div class="md:col-span-3 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Mulai</label>
-                                        <input type="time" x-bind:name="`jam[${index}][jam_mulai]`" x-model="row.jam_mulai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                        <input type="time" x-bind:name="`jam[${index}][jam_mulai]`" x-model="row.jam_mulai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                     </div>
                                     
                                     <div class="md:col-span-3 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Selesai</label>
-                                        <input type="time" x-bind:name="`jam[${index}][jam_selesai]`" x-model="row.jam_selesai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                        <input type="time" x-bind:name="`jam[${index}][jam_selesai]`" x-model="row.jam_selesai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                     </div>
                                     
                                     <div class="md:col-span-3 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Keterangan</label>
-                                        <input type="text" x-bind:name="`jam[${index}][keterangan]`" x-model="row.keterangan" placeholder="Isi jika perlu..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                        <input type="text" x-bind:name="`jam[${index}][keterangan]`" x-model="row.keterangan" placeholder="Isi jika perlu..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
                                     </div>
                                     
                                     <div class="md:col-span-1 text-right md:text-center mt-2 md:mt-0">
@@ -107,7 +107,7 @@
                     <a href="{{ route('admin.jam-pelajaran.index') }}" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                         Batal
                     </a>
-                    <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm transition-colors">
+                    <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 shadow-sm transition-colors">
                         Simpan Semua Jam
                     </button>
                 </div>

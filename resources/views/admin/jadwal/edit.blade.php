@@ -121,7 +121,7 @@
                                 
                                 <div class="md:col-span-2 flex flex-col md:block">
                                     <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Mulai</label>
-                                    <select x-bind:name="`jadwals[${index}][jam_ke_mulai]`" x-model="row.jam_ke_mulai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <select x-bind:name="`jadwals[${index}][jam_ke_mulai]`" x-model="row.jam_ke_mulai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                         @for($i = 1; $i <= $maxJam; $i++)
                                             <option value="{{ $i }}" x-bind:hidden="isJamDisabled({{ $i }}, index)" x-bind:disabled="isJamDisabled({{ $i }}, index)">Jam Ke-{{ $i }}</option>
                                         @endfor
@@ -130,7 +130,7 @@
                                 
                                 <div class="md:col-span-2 flex flex-col md:block">
                                     <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Selesai</label>
-                                    <select x-bind:name="`jadwals[${index}][jam_ke_selesai]`" x-model="row.jam_ke_selesai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <select x-bind:name="`jadwals[${index}][jam_ke_selesai]`" x-model="row.jam_ke_selesai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                         @for($i = 1; $i <= $maxJam; $i++)
                                             <option value="{{ $i }}" x-bind:hidden="isJamDisabled({{ $i }}, index)" x-bind:disabled="isJamDisabled({{ $i }}, index)">Jam Ke-{{ $i }}</option>
                                         @endfor
@@ -139,7 +139,7 @@
                                 
                                 <div class="md:col-span-4 flex flex-col md:block">
                                     <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Mata Pelajaran</label>
-                                    <select x-bind:name="`jadwals[${index}][mata_pelajaran_id]`" x-model="row.mata_pelajaran_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <select x-bind:name="`jadwals[${index}][mata_pelajaran_id]`" x-model="row.mata_pelajaran_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                         <option value="">-- Pilih --</option>
                                         @foreach($mataPelajarans as $mapel)
                                             <option value="{{ $mapel->id }}" x-bind:hidden="isMapelDisabled({{ $mapel->id }}, index)" x-bind:disabled="isMapelDisabled({{ $mapel->id }}, index)">{{ $mapel->nama_mapel }}</option>
@@ -149,7 +149,7 @@
 
                                 <div class="md:col-span-3 flex flex-col md:block">
                                     <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Guru Utama</label>
-                                    <select x-bind:name="`jadwals[${index}][guru_id]`" x-model="row.guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <select x-bind:name="`jadwals[${index}][guru_id]`" x-model="row.guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                         <option value="">-- Pilih --</option>
                                         @foreach($gurus as $guru)
                                             <option value="{{ $guru->id }}">{{ $guru->nama_lengkap }}</option>
@@ -172,7 +172,7 @@
                     <a href="{{ route('admin.jadwal.index') }}" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                         Batal
                     </a>
-                    <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm transition-colors">
+                    <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 shadow-sm transition-colors">
                         Simpan Perubahan Jadwal
                     </button>
                 </div>

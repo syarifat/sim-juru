@@ -9,7 +9,7 @@
             <div class="flex items-center space-x-2">
                 <form method="GET" action="{{ route('guru.jurnal.index') }}" class="flex items-center space-x-2 bg-gray-50 p-1.5 rounded-lg border border-gray-200">
                     <label for="tanggal" class="text-sm font-semibold text-gray-600 px-2">Tanggal:</label>
-                    <input type="date" name="tanggal" id="tanggal" value="{{ $tanggal }}" class="px-3 py-1.5 text-sm border-none bg-white rounded focus:ring-2 focus:ring-blue-500 shadow-sm" onchange="this.form.submit()">
+                    <input type="date" name="tanggal" id="tanggal" value="{{ $tanggal }}" class="px-3 py-1.5 text-sm border-none bg-white rounded focus:ring-2 focus:ring-emerald-500 shadow-sm" onchange="this.form.submit()">
                 </form>
             </div>
         </div>
@@ -25,11 +25,11 @@
             </div>
         @endif
 
-        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-center shadow-sm">
-            <svg class="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-center shadow-sm">
+            <svg class="w-6 h-6 text-emerald-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             <div>
-                <span class="text-sm text-blue-800">Menampilkan jadwal untuk hari:</span>
-                <span class="font-bold text-blue-900">{{ $namaHari }}, {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</span>
+                <span class="text-sm text-emerald-800">Menampilkan jadwal untuk hari:</span>
+                <span class="font-bold text-emerald-900">{{ $namaHari }}, {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</span>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
                             <div class="flex items-start space-x-4">
                                 <div class="bg-gray-50 rounded-lg p-3 text-center min-w-[100px] border border-gray-100">
                                     <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Jam Ke</div>
-                                    <div class="text-xl font-extrabold text-blue-600">{{ $jadwal->jam_ke_mulai }} - {{ $jadwal->jam_ke_selesai }}</div>
+                                    <div class="text-xl font-extrabold text-emerald-600">{{ $jadwal->jam_ke_mulai }} - {{ $jadwal->jam_ke_selesai }}</div>
                                     <div class="text-xs text-gray-400 mt-1 font-medium">{{ $waktuMulaiStr }} s/d {{ $waktuSelesaiStr }}</div>
                                 </div>
                                 <div>
@@ -91,7 +91,7 @@
                                     </div>
                                 @else
                                     @if(!$isFilled)
-                                        <a href="{{ route('guru.jurnal.create', ['jadwal' => $jadwal->id, 'tanggal' => $tanggal]) }}" class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg shadow-sm transition-colors text-center inline-flex items-center justify-center">
+                                        <a href="{{ route('guru.jurnal.create', ['jadwal' => $jadwal->id, 'tanggal' => $tanggal]) }}" class="w-full sm:w-auto px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-lg shadow-sm transition-colors text-center inline-flex items-center justify-center">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                             Isi Jurnal
                                         </a>

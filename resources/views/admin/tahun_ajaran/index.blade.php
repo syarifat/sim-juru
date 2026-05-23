@@ -7,7 +7,7 @@
                 <p class="text-sm text-gray-500">Daftar tahun ajaran beserta semester dan status aktifnya.</p>
             </div>
             <div>
-                <a href="{{ route('admin.tahun-ajaran.create') }}" class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
+                <a href="{{ route('admin.tahun-ajaran.create') }}" class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Tambah Tahun Ajaran
                 </a>
@@ -28,7 +28,7 @@
         <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
             <form method="GET" action="{{ route('admin.tahun-ajaran.index') }}" class="flex gap-2">
                 <div class="relative flex-1">
-                    <input type="text" name="search" value="{{ $search }}" placeholder="Cari tahun atau semester..." class="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                    <input type="text" name="search" value="{{ $search }}" placeholder="Cari tahun atau semester..." class="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
@@ -56,7 +56,7 @@
                         @forelse($tahunAjarans as $index => $ta)
                             <tr class="hover:bg-gray-50/70 transition-colors">
                                 <td class="px-6 py-4 font-medium">{{ $tahunAjarans->firstItem() + $index }}</td>
-                                <td class="px-6 py-4 font-semibold text-blue-600">{{ $ta->tahun }}</td>
+                                <td class="px-6 py-4 font-semibold text-emerald-600">{{ $ta->tahun }}</td>
                                 <td class="px-6 py-4">{{ $ta->semester }}</td>
                                 <td class="px-6 py-4">
                                     <span class="px-2.5 py-1 text-xs font-semibold rounded-full 
@@ -94,7 +94,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 uppercase tracking-wider">Tahun Ajaran</p>
-                            <p class="text-sm font-bold text-blue-600">{{ $ta->tahun }}</p>
+                            <p class="text-sm font-bold text-emerald-600">{{ $ta->tahun }}</p>
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 uppercase tracking-wider">Semester</p>

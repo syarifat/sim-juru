@@ -21,15 +21,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Dari Tanggal</label>
-                        <input type="date" name="start_date" value="{{ $startDate }}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                        <input type="date" name="start_date" value="{{ $startDate }}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Sampai Tanggal</label>
-                        <input type="date" name="end_date" value="{{ $endDate }}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                        <input type="date" name="end_date" value="{{ $endDate }}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Tahun Ajaran</label>
-                        <select name="tahun_ajaran_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                        <select name="tahun_ajaran_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                             <option value="">Semua Tahun Ajaran</option>
                             @foreach($tahunAjarans as $ta)
                                 <option value="{{ $ta->id }}" {{ $tahunAjaranId == $ta->id ? 'selected' : '' }}>{{ $ta->tahun }} - {{ $ta->semester }}</option>
@@ -38,7 +38,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Status Validasi</label>
-                        <select name="status_validasi" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                        <select name="status_validasi" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                             <option value="">Semua Status</option>
                             <option value="Pending" {{ $statusValidasi == 'Pending' ? 'selected' : '' }}>Pending</option>
                             <option value="Disetujui" {{ $statusValidasi == 'Disetujui' ? 'selected' : '' }}>Disetujui</option>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="lg:col-span-3">
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Guru</label>
-                        <select name="guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                        <select name="guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:border-emerald-500 focus:ring-emerald-500">
                             <option value="">Semua Guru</option>
                             @foreach($gurus as $guru)
                                 <option value="{{ $guru->id }}" {{ $guruId == $guru->id ? 'selected' : '' }}>{{ $guru->nama_lengkap }}</option>
@@ -55,7 +55,7 @@
                         </select>
                     </div>
                     <div class="flex items-end">
-                        <button type="button" onclick="document.getElementById('formAction').value='filter'; document.getElementById('filterForm').submit();" class="w-full px-4 py-2 bg-blue-50 text-blue-700 font-bold rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
+                        <button type="button" onclick="document.getElementById('formAction').value='filter'; document.getElementById('filterForm').submit();" class="w-full px-4 py-2 bg-emerald-50 text-emerald-700 font-bold rounded-lg border border-emerald-200 hover:bg-emerald-100 transition-colors">
                             Terapkan Filter
                         </button>
                     </div>
@@ -89,7 +89,7 @@
                                     @endif
                                 </td>
                                 <td class="px-4 py-3">
-                                    <div class="font-bold text-blue-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</div>
+                                    <div class="font-bold text-emerald-600">{{ $jurnal->jadwal->kelas->nama_kelas }}</div>
                                     <div class="text-xs text-gray-500">{{ $jurnal->jadwal->mataPelajaran->nama_mapel }}</div>
                                 </td>
                                 <td class="px-4 py-3 text-center font-bold">
