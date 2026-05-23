@@ -12,6 +12,8 @@
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
              x-data="{
+                hari: '{{ old('hari', '') }}',
+                kelas_id: '{{ old('kelas_id', '') }}',
                 rows: [ { jam_ke_mulai: 1, jam_ke_selesai: 1, mata_pelajaran_id: '', guru_id: '', error: '' } ],
                 maxJam: {{ $maxJam }},
                 isJamDisabled(jam, currentIndex) {
@@ -55,8 +57,8 @@
                     this.rows.splice(index, 1);
                 },
                 checkRowBentrok(row, currentIndex) {
-                    let hari = document.getElementById('hari').value;
-                    let kelasId = document.getElementById('kelas_id').value;
+                    let hari = this.hari;
+                    let kelasId = this.kelas_id;
                     let taId = '{{ $activeTahunAjaran->id }}';
                     
                     if (!hari || !row.guru_id || !row.jam_ke_mulai || !row.jam_ke_selesai) {
@@ -105,7 +107,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="hari" class="block text-sm font-semibold text-gray-700 mb-1">Hari <span class="text-red-500">*</span></label>
-                            <select name="hari" id="hari" @change="rows.forEach((r, idx) => checkRowBentrok(r, idx))" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
+                            <select name="hari" id="hari" x-model="hari" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
                                 <option value="">-- Pilih Hari --</option>
                                 @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $hari)
                                     <option value="{{ $hari }}" {{ old('hari') == $hari ? 'selected' : '' }}>{{ $hari }}</option>
@@ -115,7 +117,7 @@
                         
                         <div>
                             <label for="kelas_id" class="block text-sm font-semibold text-gray-700 mb-1">Kelas <span class="text-red-500">*</span></label>
-                            <select name="kelas_id" id="kelas_id" @change="rows.forEach((r, idx) => checkRowBentrok(r, idx))" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
+                            <select name="kelas_id" id="kelas_id" x-model="kelas_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
                                 <option value="">-- Pilih Kelas --</option>
                                 @foreach($kelases as $kelas)
                                     <option value="{{ $kelas->id }}" {{ old('kelas_id') == $kelas->id ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
@@ -143,7 +145,7 @@
 
                         <div class="space-y-3">
                             <template x-for="(row, index) in rows" :key="index">
-                                <div class="grid grid-cols-1 md:grid-cols-12 gap-3 p-4 md:p-0 border border-gray-200 md:border-transparent rounded-lg bg-gray-50 md:bg-transparent items-center">
+                                <div class="grid grid-cols-1 md:grid-cols-12 gap-3 p-4 md:p-0 border border-gray-200 md:border-transparent rounded-lg bg-gray-50 md:bg-transparent items-center" x-effect="checkRowBentrok(row, index)">
                                     
                                     <div class="md:col-span-2 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Mulai</label>

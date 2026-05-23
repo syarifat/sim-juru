@@ -12,6 +12,8 @@
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
              x-data="{
+                hari: '{{ $jadwal->hari }}',
+                kelas_id: '{{ $jadwal->kelas_id }}',
                 rows: [
                     @foreach($batchJadwals as $bj)
                     { 
@@ -67,8 +69,8 @@
                     }
                 },
                 checkRowBentrok(row, currentIndex) {
-                    let hari = '{{ $jadwal->hari }}';
-                    let kelasId = '{{ $jadwal->kelas_id }}';
+                    let hari = this.hari;
+                    let kelasId = this.kelas_id;
                     let taId = '{{ $jadwal->tahun_ajaran_id }}';
                     
                     if (!hari || !row.guru_id || !row.jam_ke_mulai || !row.jam_ke_selesai) {
@@ -144,7 +146,7 @@
 
                     <div class="space-y-3">
                         <template x-for="(row, index) in rows" :key="index">
-                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 p-4 md:p-0 border border-gray-200 md:border-transparent rounded-lg bg-gray-50 md:bg-transparent items-center">
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 p-4 md:p-0 border border-gray-200 md:border-transparent rounded-lg bg-gray-50 md:bg-transparent items-center" x-effect="checkRowBentrok(row, index)">
                                 
                                 <input type="hidden" x-bind:name="`jadwals[${index}][id]`" x-model="row.id">
                                 
