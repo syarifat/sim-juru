@@ -83,19 +83,14 @@ class JadwalController extends Controller
             }
         }
 
-        // 2. Cek bentrok dengan data yang ada di database
+        // 2. Cek bentrok dengan data yang ada di database (Interval Overlap Check: A <= Y AND B >= X)
         foreach ($request->jadwals as $index => $j) {
             $bentrokGuru = Jadwal::where('tahun_ajaran_id', $request->tahun_ajaran_id)
                 ->where('guru_id', $j['guru_id'])
                 ->where('hari', $request->hari)
-                ->where(function($q) use ($j) {
-                    $q->whereBetween('jam_ke_mulai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhereBetween('jam_ke_selesai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhere(function($q2) use ($j) {
-                          $q2->where('jam_ke_mulai', '<=', $j['jam_ke_mulai'])
-                             ->where('jam_ke_selesai', '>=', $j['jam_ke_selesai']);
-                      });
-                })->exists();
+                ->where('jam_ke_mulai', '<=', $j['jam_ke_selesai'])
+                ->where('jam_ke_selesai', '>=', $j['jam_ke_mulai'])
+                ->exists();
 
             if ($bentrokGuru) {
                 $errors["jadwals.{$index}.guru_id"] = "Guru ini sudah memiliki jadwal pada jam tersebut.";
@@ -104,14 +99,9 @@ class JadwalController extends Controller
             $bentrokKelas = Jadwal::where('tahun_ajaran_id', $request->tahun_ajaran_id)
                 ->where('kelas_id', $request->kelas_id)
                 ->where('hari', $request->hari)
-                ->where(function($q) use ($j) {
-                    $q->whereBetween('jam_ke_mulai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhereBetween('jam_ke_selesai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhere(function($q2) use ($j) {
-                          $q2->where('jam_ke_mulai', '<=', $j['jam_ke_mulai'])
-                             ->where('jam_ke_selesai', '>=', $j['jam_ke_selesai']);
-                      });
-                })->exists();
+                ->where('jam_ke_mulai', '<=', $j['jam_ke_selesai'])
+                ->where('jam_ke_selesai', '>=', $j['jam_ke_mulai'])
+                ->exists();
 
             if ($bentrokKelas) {
                 $errors["jadwals.{$index}.jam_ke_mulai"] = "Kelas ini sudah terisi pada jam tersebut.";
@@ -179,7 +169,7 @@ class JadwalController extends Controller
             }
         }
 
-        // 2. Cek bentrok dengan data yang ada di database
+        // 2. Cek bentrok dengan data yang ada di database (Interval Overlap Check: A <= Y AND B >= X)
         foreach ($request->jadwals as $index => $j) {
             $currentId = $j['id'] ?? null;
             if ($currentId) {
@@ -192,14 +182,9 @@ class JadwalController extends Controller
                 ->when($currentId, function($q) use ($currentId) {
                     return $q->where('id', '!=', $currentId);
                 })
-                ->where(function($q) use ($j) {
-                    $q->whereBetween('jam_ke_mulai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhereBetween('jam_ke_selesai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhere(function($q2) use ($j) {
-                          $q2->where('jam_ke_mulai', '<=', $j['jam_ke_mulai'])
-                             ->where('jam_ke_selesai', '>=', $j['jam_ke_selesai']);
-                      });
-                })->exists();
+                ->where('jam_ke_mulai', '<=', $j['jam_ke_selesai'])
+                ->where('jam_ke_selesai', '>=', $j['jam_ke_mulai'])
+                ->exists();
 
             if ($bentrokGuru) {
                 $errors["jadwals.{$index}.guru_id"] = "Guru ini sudah memiliki jadwal pada jam tersebut.";
@@ -211,14 +196,9 @@ class JadwalController extends Controller
                 ->when($currentId, function($q) use ($currentId) {
                     return $q->where('id', '!=', $currentId);
                 })
-                ->where(function($q) use ($j) {
-                    $q->whereBetween('jam_ke_mulai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhereBetween('jam_ke_selesai', [$j['jam_ke_mulai'], $j['jam_ke_selesai']])
-                      ->orWhere(function($q2) use ($j) {
-                          $q2->where('jam_ke_mulai', '<=', $j['jam_ke_mulai'])
-                             ->where('jam_ke_selesai', '>=', $j['jam_ke_selesai']);
-                      });
-                })->exists();
+                ->where('jam_ke_mulai', '<=', $j['jam_ke_selesai'])
+                ->where('jam_ke_selesai', '>=', $j['jam_ke_mulai'])
+                ->exists();
 
             if ($bentrokKelas) {
                 $errors["jadwals.{$index}.jam_ke_mulai"] = "Kelas ini sudah terisi pada jam tersebut.";
