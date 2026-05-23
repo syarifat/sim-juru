@@ -17,7 +17,15 @@ class RoleMiddleware
         }
 
         // Cek apakah role pengguna ada di dalam daftar parameter yang diizinkan
-        if (!in_array($request->user()->role, $roles)) {
+        // Support: role:Admin,Kepala_Sekolah (comma-separated in single arg)
+        $allowedRoles = [];
+        foreach ($roles as $role) {
+            foreach (explode(',', $role) as $r) {
+                $allowedRoles[] = trim($r);
+            }
+        }
+
+        if (!in_array($request->user()->role, $allowedRoles)) {
             abort(403, 'Anda tidak memiliki hak akses untuk halaman ini.');
         }
 
