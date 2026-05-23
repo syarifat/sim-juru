@@ -53,8 +53,9 @@ class JadwalController extends Controller
         $mataPelajarans = MataPelajaran::orderBy('nama_mapel')->get();
         $kelases = Kelas::orderBy('nama_kelas')->get();
         $maxJam = MasterJamPelajaran::max('jam_ke') ?? 10;
+        $jamPelajarans = MasterJamPelajaran::orderBy('jam_ke')->get()->keyBy('jam_ke');
 
-        return view('admin.jadwal.create', compact('activeTahunAjaran', 'gurus', 'mataPelajarans', 'kelases', 'maxJam'));
+        return view('admin.jadwal.create', compact('activeTahunAjaran', 'gurus', 'mataPelajarans', 'kelases', 'maxJam', 'jamPelajarans'));
     }
 
     public function store(Request $request)
@@ -132,6 +133,7 @@ class JadwalController extends Controller
         $mataPelajarans = MataPelajaran::orderBy('nama_mapel')->get();
         $kelases = Kelas::orderBy('nama_kelas')->get();
         $maxJam = MasterJamPelajaran::max('jam_ke') ?? 10;
+        $jamPelajarans = MasterJamPelajaran::orderBy('jam_ke')->get()->keyBy('jam_ke');
 
         $batchJadwals = Jadwal::where('tahun_ajaran_id', $jadwal->tahun_ajaran_id)
             ->where('kelas_id', $jadwal->kelas_id)
@@ -139,7 +141,7 @@ class JadwalController extends Controller
             ->orderBy('jam_ke_mulai')
             ->get();
 
-        return view('admin.jadwal.edit', compact('jadwal', 'batchJadwals', 'tahunAjarans', 'gurus', 'mataPelajarans', 'kelases', 'maxJam'));
+        return view('admin.jadwal.edit', compact('jadwal', 'batchJadwals', 'tahunAjarans', 'gurus', 'mataPelajarans', 'kelases', 'maxJam', 'jamPelajarans'));
     }
 
     public function update(Request $request, Jadwal $jadwal)

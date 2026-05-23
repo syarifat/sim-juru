@@ -124,7 +124,11 @@
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Mulai</label>
                                         <select x-bind:name="`jadwals[${index}][jam_ke_mulai]`" x-model="row.jam_ke_mulai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                             @for($i = 1; $i <= $maxJam; $i++)
-                                                <option value="{{ $i }}" x-bind:hidden="isJamDisabled({{ $i }}, index)" x-bind:disabled="isJamDisabled({{ $i }}, index)">Jam Ke-{{ $i }}</option>
+                                                @php
+                                                    $jamObj = $jamPelajarans[$i] ?? null;
+                                                    $jamStr = $jamObj ? ' (' . \Carbon\Carbon::parse($jamObj->jam_mulai)->format('H:i') . ' - ' . \Carbon\Carbon::parse($jamObj->jam_selesai)->format('H:i') . ')' : '';
+                                                @endphp
+                                                <option value="{{ $i }}" x-bind:hidden="isJamDisabled({{ $i }}, index)" x-bind:disabled="isJamDisabled({{ $i }}, index)">Jam Ke-{{ $i }}{{ $jamStr }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -133,7 +137,11 @@
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Selesai</label>
                                         <select x-bind:name="`jadwals[${index}][jam_ke_selesai]`" x-model="row.jam_ke_selesai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                             @for($i = 1; $i <= $maxJam; $i++)
-                                                <option value="{{ $i }}" x-bind:hidden="isJamDisabled({{ $i }}, index)" x-bind:disabled="isJamDisabled({{ $i }}, index)">Jam Ke-{{ $i }}</option>
+                                                @php
+                                                    $jamObj = $jamPelajarans[$i] ?? null;
+                                                    $jamStr = $jamObj ? ' (' . \Carbon\Carbon::parse($jamObj->jam_mulai)->format('H:i') . ' - ' . \Carbon\Carbon::parse($jamObj->jam_selesai)->format('H:i') . ')' : '';
+                                                @endphp
+                                                <option value="{{ $i }}" x-bind:hidden="isJamDisabled({{ $i }}, index)" x-bind:disabled="isJamDisabled({{ $i }}, index)">Jam Ke-{{ $i }}{{ $jamStr }}</option>
                                             @endfor
                                         </select>
                                     </div>
