@@ -42,8 +42,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('guru-pengganti', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'store'])->name('guru-pengganti.store');
         Route::delete('guru-pengganti/{guru_pengganti}', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'destroy'])->name('guru-pengganti.destroy');
 
-        // Laporan Jurnal Routes
-        Route::get('laporan-jurnal', [\App\Http\Controllers\Admin\LaporanController::class, 'index'])->name('laporan.index');
+    });
+
+    // Laporan Jurnal - bisa diakses Admin dan Kepala Sekolah
+    Route::middleware(['role:Admin,Kepala_Sekolah'])->group(function () {
+        Route::get('admin/laporan-jurnal', [\App\Http\Controllers\Admin\LaporanController::class, 'index'])->name('admin.laporan.index');
     });
 
     // Khusus Role Guru
@@ -63,7 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('validasi-jurnal', [\App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'index'])->name('validasi.index');
         Route::get('validasi-jurnal/{jurnal}/edit', [\App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'edit'])->name('validasi.edit');
         Route::put('validasi-jurnal/{jurnal}', [\App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'update'])->name('validasi.update');
-        Route::get('/laporan', function () { return 'Menu Laporan Jurnal'; })->name('laporan');
+        // Kepsek akses laporan jurnal pakai route yang sama dengan admin
     });
 
     // Profile route bawaan breeze
