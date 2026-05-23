@@ -9,6 +9,7 @@ class MasterJamPelajaranSeeder extends Seeder
 {
     public function run(): void
     {
+        MasterJamPelajaran::truncate();
         $jams = [
             ['jam_ke' => 1, 'jam_mulai' => '07:00', 'jam_selesai' => '07:45'],
             ['jam_ke' => 2, 'jam_mulai' => '07:45', 'jam_selesai' => '08:30'],

@@ -10,16 +10,10 @@ class MasterJamPelajaranController extends Controller
 {
     public function index(Request $request)
     {
-        $hariFilter = $request->input('hari');
-        
-        $jamPelajarans = MasterJamPelajaran::when($hariFilter, function($query) use ($hariFilter) {
-                return $query->where('hari', $hariFilter);
-            })
-            ->orderByRaw("FIELD(hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu')")
-            ->orderBy('jam_ke')
+        $jamPelajarans = MasterJamPelajaran::orderBy('jam_ke')
             ->paginate(15);
             
-        return view('admin.jam_pelajaran.index', compact('jamPelajarans', 'hariFilter'));
+        return view('admin.jam_pelajaran.index', compact('jamPelajarans'));
     }
 
     public function create()
@@ -30,7 +24,6 @@ class MasterJamPelajaranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu',
             'jam' => 'required|array|min:1',
             'jam.*.jam_ke' => 'required|integer|min:0',
             'jam.*.jam_mulai' => 'required',
@@ -40,7 +33,6 @@ class MasterJamPelajaranController extends Controller
 
         foreach ($request->jam as $j) {
             MasterJamPelajaran::create([
-                'hari' => $request->hari,
                 'jam_ke' => $j['jam_ke'],
                 'jam_mulai' => $j['jam_mulai'],
                 'jam_selesai' => $j['jam_selesai'],
@@ -59,7 +51,6 @@ class MasterJamPelajaranController extends Controller
     public function update(Request $request, MasterJamPelajaran $jam_pelajaran)
     {
         $request->validate([
-            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu',
             'jam_ke' => 'required|integer|min:0',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required|after:jam_mulai',

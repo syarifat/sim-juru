@@ -6,7 +6,7 @@
             </a>
             <div>
                 <h2 class="text-xl font-bold text-gray-800">Tambah Jam Pelajaran</h2>
-                <p class="text-sm text-gray-500">Pilih hari dan tambahkan jam pelajaran / istirahat secara berurutan.</p>
+                <p class="text-sm text-gray-500">Tambahkan jam pelajaran / istirahat secara berurutan.</p>
             </div>
         </div>
 
@@ -40,19 +40,9 @@
                 @endif
 
                 <div class="space-y-6">
-                    <div class="w-full md:w-1/3">
-                        <label for="hari" class="block text-sm font-semibold text-gray-700 mb-1">Pilih Hari <span class="text-red-500">*</span></label>
-                        <select name="hari" id="hari" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
-                            <option value="">-- Pilih Hari --</option>
-                            @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $hari)
-                                <option value="{{ $hari }}" {{ old('hari') == $hari ? 'selected' : '' }}>{{ $hari }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="border-t border-gray-100 pt-4">
+                    <div class="pt-2">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-md font-bold text-gray-800">Daftar Jam</h3>
+                            <h3 class="text-md font-bold text-gray-800">Daftar Jam Pelajaran</h3>
                             <button type="button" @click="addRow()" class="inline-flex items-center px-3 py-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 font-semibold rounded-lg text-sm transition-colors border border-emerald-200">
                                 <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                                 Tambah Baris

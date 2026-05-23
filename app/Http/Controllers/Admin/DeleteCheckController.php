@@ -217,12 +217,11 @@ class DeleteCheckController extends Controller
                     return response()->json(['error' => 'Jam Pelajaran tidak ditemukan.'], 404);
                 }
 
-                $name = $jam->hari . ' (Jam ke-' . ($jam->jam_ke == 0 ? 'Istirahat' : $jam->jam_ke) . ')';
+                $name = 'Jam ke-' . ($jam->jam_ke == 0 ? 'Istirahat' : $jam->jam_ke);
 
-                // Jam Pelajaran tidak memakai foreign key di DB, tapi merujuk jam_ke di Jadwal pada hari yang sama.
-                // Cari jadwal yang terpengaruh pada hari yang sama
-                $jadwalCount = Jadwal::where('hari', $jam->hari)
-                    ->where(function($query) use ($jam) {
+                // Jam Pelajaran tidak memakai foreign key di DB, tapi merujuk jam_ke di Jadwal.
+                // Cari jadwal yang terpengaruh pada jam pelajaran ini di seluruh hari.
+                $jadwalCount = Jadwal::where(function($query) use ($jam) {
                         $query->where('jam_ke_mulai', $jam->jam_ke)
                               ->orWhere('jam_ke_selesai', $jam->jam_ke);
                     })->count();
