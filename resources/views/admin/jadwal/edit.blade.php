@@ -78,7 +78,7 @@
                         return;
                     }
                     
-                    let url = `{{ route('admin.jadwal.check-bentrok') }}?tahun_ajaran_id=${taId}&hari=${hari}&kelas_id=${kelasId}&guru_id=${row.guru_id}&jam_ke_mulai=${row.jam_ke_mulai}&jam_ke_selesai=${row.jam_ke_selesai}`;
+                    let url = `{{ route('admin.jadwal.check-bentrok', [], false) }}?tahun_ajaran_id=${taId}&hari=${hari}&kelas_id=${kelasId}&guru_id=${row.guru_id}&jam_ke_mulai=${row.jam_ke_mulai}&jam_ke_selesai=${row.jam_ke_selesai}`;
                     if (row.id) {
                         url += `&exclude_id=${row.id}`;
                     }
