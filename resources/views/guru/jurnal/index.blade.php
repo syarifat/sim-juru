@@ -83,16 +83,23 @@
                                 </div>
                             </div>
 
-                            <div class="flex-shrink-0 flex items-center">
-                                @if(!$isFilled)
-                                    <a href="{{ route('guru.jurnal.create', ['jadwal' => $jadwal->id, 'tanggal' => $tanggal]) }}" class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg shadow-sm transition-colors text-center inline-flex items-center justify-center">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                                        Isi Jurnal
-                                    </a>
+                            <div class="flex-shrink-0 flex flex-col items-end">
+                                @if(isset($jadwal->is_digantikan) && $jadwal->is_digantikan)
+                                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Digantikan Oleh:</div>
+                                    <div class="px-4 py-2 bg-amber-50 text-amber-700 text-sm font-bold rounded-lg border border-amber-200">
+                                        {{ $jadwal->nama_guru_pengganti }}
+                                    </div>
                                 @else
-                                    <button disabled class="w-full sm:w-auto px-6 py-2.5 bg-gray-100 text-gray-400 text-sm font-bold rounded-lg cursor-not-allowed text-center inline-flex items-center justify-center border border-gray-200">
-                                        Sudah Diisi
-                                    </button>
+                                    @if(!$isFilled)
+                                        <a href="{{ route('guru.jurnal.create', ['jadwal' => $jadwal->id, 'tanggal' => $tanggal]) }}" class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg shadow-sm transition-colors text-center inline-flex items-center justify-center">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                            Isi Jurnal
+                                        </a>
+                                    @else
+                                        <button disabled class="w-full sm:w-auto px-6 py-2.5 bg-gray-100 text-gray-400 text-sm font-bold rounded-lg cursor-not-allowed text-center inline-flex items-center justify-center border border-gray-200">
+                                            Sudah Diisi
+                                        </button>
+                                    @endif
                                 @endif
                             </div>
 

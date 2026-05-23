@@ -39,17 +39,22 @@ class JurnalController extends Controller
         }
 
         // Ambil jadwal asli guru ini pada hari tersebut
-        // Pastikan tidak ada guru pengganti untuk jadwal ini pada tanggal tersebut
+        // Pastikan kita meload data guru penggantinya jika ada
         $jadwalsAsli = Jadwal::with(['kelas', 'mataPelajaran', 'guruPenggantis' => function($q) use ($tanggal) {
-                $q->where('tanggal_mengajar', $tanggal);
+                $q->with('guruPengganti')->where('tanggal_mengajar', $tanggal);
             }])
             ->where('tahun_ajaran_id', $activeTahunAjaran->id)
             ->where('guru_id', $guruId)
             ->where('hari', $namaHari)
             ->get()
-            ->filter(function($jadwal) {
-                // Hanya tampilkan jika tidak digantikan oleh guru lain
-                return $jadwal->guruPenggantis->isEmpty();
+            ->map(function($jadwal) {
+                if ($jadwal->guruPenggantis->isNotEmpty()) {
+                    $jadwal->is_digantikan = true;
+                    $jadwal->nama_guru_pengganti = $jadwal->guruPenggantis->first()->guruPengganti->nama_lengkap ?? 'Guru Pengganti';
+                } else {
+                    $jadwal->is_digantikan = false;
+                }
+                return $jadwal;
             });
 
         // Ambil jadwal di mana guru ini bertindak sebagai pengganti pada tanggal tersebut
