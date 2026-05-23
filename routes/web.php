@@ -42,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('guru-pengganti', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'store'])->name('guru-pengganti.store');
         Route::delete('guru-pengganti/{guru_pengganti}', [\App\Http\Controllers\Admin\GuruPenggantiController::class, 'destroy'])->name('guru-pengganti.destroy');
 
+        // Delete check API
+        Route::get('check-delete/{type}/{id}', [\App\Http\Controllers\Admin\DeleteCheckController::class, 'check'])->name('check-delete');
     });
 
     // Laporan Jurnal - bisa diakses Admin dan Kepala Sekolah
