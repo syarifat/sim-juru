@@ -73,6 +73,17 @@ class JadwalController extends Controller
 
         $errors = [];
 
+        // 1. Cek bentrok antar baris input dalam form itu sendiri
+        foreach ($request->jadwals as $i => $ji) {
+            foreach ($request->jadwals as $j => $jj) {
+                if ($i === $j) continue;
+                if ($ji['jam_ke_mulai'] <= $jj['jam_ke_selesai'] && $ji['jam_ke_selesai'] >= $jj['jam_ke_mulai']) {
+                    $errors["jadwals.{$i}.jam_ke_mulai"] = "Jam pelajaran ini bertabrakan dengan baris input lain di form.";
+                }
+            }
+        }
+
+        // 2. Cek bentrok dengan data yang ada di database
         foreach ($request->jadwals as $index => $j) {
             $bentrokGuru = Jadwal::where('tahun_ajaran_id', $request->tahun_ajaran_id)
                 ->where('guru_id', $j['guru_id'])
@@ -158,6 +169,17 @@ class JadwalController extends Controller
         $errors = [];
         $submittedIds = [];
 
+        // 1. Cek bentrok antar baris input dalam form itu sendiri
+        foreach ($request->jadwals as $i => $ji) {
+            foreach ($request->jadwals as $j => $jj) {
+                if ($i === $j) continue;
+                if ($ji['jam_ke_mulai'] <= $jj['jam_ke_selesai'] && $ji['jam_ke_selesai'] >= $jj['jam_ke_mulai']) {
+                    $errors["jadwals.{$i}.jam_ke_mulai"] = "Jam pelajaran ini bertabrakan dengan baris input lain di form.";
+                }
+            }
+        }
+
+        // 2. Cek bentrok dengan data yang ada di database
         foreach ($request->jadwals as $index => $j) {
             $currentId = $j['id'] ?? null;
             if ($currentId) {
