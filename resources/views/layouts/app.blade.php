@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'SIMJURU') }}</title>
+    <link rel="icon" type="image/png" href="/logo.png">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -26,8 +27,11 @@
 
             {{-- Logo + Toggle Button --}}
             <div class="h-16 flex items-center justify-center border-b border-slate-800 flex-shrink-0 relative">
-                <span x-show="desktopSidebarOpen" x-cloak class="text-2xl font-bold tracking-wider text-emerald-400">SIMJURU</span>
-                <span x-show="!desktopSidebarOpen" x-cloak class="text-2xl font-bold text-emerald-400">SJ</span>
+                <div x-show="desktopSidebarOpen" x-cloak class="flex items-center space-x-2.5">
+                    <img src="/logo.png" alt="Logo" class="w-8 h-8 object-contain flex-shrink-0">
+                    <span class="text-lg font-extrabold tracking-wider text-white">SIMJURU</span>
+                </div>
+                <img x-show="!desktopSidebarOpen" x-cloak src="/logo.png" alt="Logo" class="w-8 h-8 object-contain">
 
                 <button @click="toggleSidebar()"
                         class="absolute -right-3 top-1/2 -translate-y-1/2 bg-slate-800 text-gray-400 hover:text-white rounded-full p-1 border border-slate-700 flex items-center justify-center shadow-md z-30">
@@ -89,7 +93,10 @@
                x-transition:leave-end="-translate-x-full">
 
             <div class="h-16 flex items-center justify-between px-4 border-b border-slate-800 flex-shrink-0">
-                <span class="text-xl font-bold text-emerald-400">SIMJURU</span>
+                <div class="flex items-center space-x-2.5">
+                    <img src="/logo.png" alt="Logo" class="w-8 h-8 object-contain">
+                    <span class="text-lg font-extrabold text-white">SIMJURU</span>
+                </div>
                 <button @click="mobileMenuOpen = false" class="text-gray-400 hover:text-white focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -126,7 +133,10 @@
 
             {{-- Mobile topbar --}}
             <div class="md:hidden flex-shrink-0 flex items-center justify-between px-4 py-3 bg-white shadow-sm border-b border-gray-100 z-10">
-                <span class="text-xl font-extrabold text-emerald-700 tracking-wider">SIMJURU</span>
+                <div class="flex items-center space-x-2">
+                    <img src="/logo.png" alt="Logo" class="w-7 h-7 object-contain">
+                    <span class="text-lg font-extrabold text-slate-800 tracking-wide">SIMJURU</span>
+                </div>
                 <button @click="mobileMenuOpen = true" class="text-gray-600 hover:text-emerald-600 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
