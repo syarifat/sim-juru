@@ -13,6 +13,67 @@ use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
+    public function checkBentrok(Request $request)
+    {
+        $tahunAjaranId = $request->input('tahun_ajaran_id');
+        $guruId = $request->input('guru_id');
+        $kelasId = $request->input('kelas_id');
+        $hari = $request->input('hari');
+        $jamMulai = $request->input('jam_ke_mulai');
+        $jamSelesai = $request->input('jam_ke_selesai');
+        $excludeId = $request->input('exclude_id');
+
+        if (!$tahunAjaranId || !$hari || !$jamMulai || !$jamSelesai) {
+            return response()->json(['bentrok' => false, 'pesan' => '']);
+        }
+
+        // Cek bentrok guru (Overlap: jam_ke_mulai <= in_selesai AND jam_ke_selesai >= in_mulai)
+        if ($guruId) {
+            $bentrokGuru = Jadwal::with(['kelas', 'guru'])
+                ->where('tahun_ajaran_id', $tahunAjaranId)
+                ->where('guru_id', $guruId)
+                ->where('hari', $hari)
+                ->when($excludeId, function($q) use ($excludeId) {
+                    return $q->where('id', '!=', $excludeId);
+                })
+                ->where('jam_ke_mulai', '<=', $jamSelesai)
+                ->where('jam_ke_selesai', '>=', $jamMulai)
+                ->first();
+
+            if ($bentrokGuru) {
+                return response()->json([
+                    'bentrok' => true,
+                    'tipe' => 'guru',
+                    'pesan' => "Guru {$bentrokGuru->guru->nama_lengkap} sudah mengajar di Kelas {$bentrokGuru->kelas->nama_kelas} pada hari {$hari} Jam Ke-{$bentrokGuru->jam_ke_mulai} s/d {$bentrokGuru->jam_ke_selesai}."
+                ]);
+            }
+        }
+
+        // Cek bentrok kelas
+        if ($kelasId) {
+            $bentrokKelas = Jadwal::with(['kelas', 'guru'])
+                ->where('tahun_ajaran_id', $tahunAjaranId)
+                ->where('kelas_id', $kelasId)
+                ->where('hari', $hari)
+                ->when($excludeId, function($q) use ($excludeId) {
+                    return $q->where('id', '!=', $excludeId);
+                })
+                ->where('jam_ke_mulai', '<=', $jamSelesai)
+                ->where('jam_ke_selesai', '>=', $jamMulai)
+                ->first();
+
+            if ($bentrokKelas) {
+                return response()->json([
+                    'bentrok' => true,
+                    'tipe' => 'kelas',
+                    'pesan' => "Kelas {$bentrokKelas->kelas->nama_kelas} sudah terisi oleh Guru {$bentrokKelas->guru->nama_lengkap} pada hari {$hari} Jam Ke-{$bentrokKelas->jam_ke_mulai} s/d {$bentrokKelas->jam_ke_selesai}."
+                ]);
+            }
+        }
+
+        return response()->json(['bentrok' => false, 'pesan' => '']);
+    }
+
     public function index(Request $request)
     {
         $kelasId = $request->input('kelas_id');

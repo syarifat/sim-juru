@@ -19,7 +19,8 @@
                         jam_ke_mulai: {{ $bj->jam_ke_mulai }}, 
                         jam_ke_selesai: {{ $bj->jam_ke_selesai }}, 
                         mata_pelajaran_id: '{{ $bj->mata_pelajaran_id }}', 
-                        guru_id: '{{ $bj->guru_id }}' 
+                        guru_id: '{{ $bj->guru_id }}',
+                        error: ''
                     },
                     @endforeach
                 ],
@@ -58,12 +59,40 @@
                         alert('Semua jam pelajaran sudah terisi.');
                         return;
                     }
-                    this.rows.push({ id: null, jam_ke_mulai: nextJam, jam_ke_selesai: nextJam, mata_pelajaran_id: '', guru_id: '' });
+                    this.rows.push({ id: null, jam_ke_mulai: nextJam, jam_ke_selesai: nextJam, mata_pelajaran_id: '', guru_id: '', error: '' });
                 },
                 removeRow(index) {
                     if (confirm('Yakin ingin menghapus baris jadwal ini? Jika sudah tersimpan sebelumnya, data akan ikut terhapus dari sistem saat disimpan.')) {
                         this.rows.splice(index, 1);
                     }
+                },
+                checkRowBentrok(row, currentIndex) {
+                    let hari = '{{ $jadwal->hari }}';
+                    let kelasId = '{{ $jadwal->kelas_id }}';
+                    let taId = '{{ $jadwal->tahun_ajaran_id }}';
+                    
+                    if (!hari || !row.guru_id || !row.jam_ke_mulai || !row.jam_ke_selesai) {
+                        row.error = '';
+                        return;
+                    }
+                    
+                    let url = `{{ route('admin.jadwal.check-bentrok') }}?tahun_ajaran_id=${taId}&hari=${hari}&kelas_id=${kelasId}&guru_id=${row.guru_id}&jam_ke_mulai=${row.jam_ke_mulai}&jam_ke_selesai=${row.jam_ke_selesai}`;
+                    if (row.id) {
+                        url += `&exclude_id=${row.id}`;
+                    }
+                    
+                    fetch(url)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.bentrok) {
+                                row.error = data.pesan;
+                            } else {
+                                row.error = '';
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
                 }
              }">
              
@@ -121,7 +150,7 @@
                                 
                                 <div class="md:col-span-2 flex flex-col md:block">
                                     <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Mulai</label>
-                                    <select x-bind:name="`jadwals[${index}][jam_ke_mulai]`" x-model="row.jam_ke_mulai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
+                                    <select x-bind:name="`jadwals[${index}][jam_ke_mulai]`" x-model="row.jam_ke_mulai" @change="checkRowBentrok(row, index)" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                         @for($i = 1; $i <= $maxJam; $i++)
                                             @php
                                                 $jamObj = $jamPelajarans[$i] ?? null;
@@ -134,7 +163,7 @@
                                 
                                 <div class="md:col-span-2 flex flex-col md:block">
                                     <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Selesai</label>
-                                    <select x-bind:name="`jadwals[${index}][jam_ke_selesai]`" x-model="row.jam_ke_selesai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
+                                    <select x-bind:name="`jadwals[${index}][jam_ke_selesai]`" x-model="row.jam_ke_selesai" @change="checkRowBentrok(row, index)" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                         @for($i = 1; $i <= $maxJam; $i++)
                                             @php
                                                 $jamObj = $jamPelajarans[$i] ?? null;
@@ -157,7 +186,7 @@
 
                                 <div class="md:col-span-3 flex flex-col md:block">
                                     <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Guru Utama</label>
-                                    <select x-bind:name="`jadwals[${index}][guru_id]`" x-model="row.guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
+                                    <select x-bind:name="`jadwals[${index}][guru_id]`" x-model="row.guru_id" @change="checkRowBentrok(row, index)" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                         <option value="">-- Pilih --</option>
                                         @foreach($gurus as $guru)
                                             <option value="{{ $guru->id }}">{{ $guru->nama_lengkap }}</option>
@@ -170,6 +199,12 @@
                                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                         <span class="md:hidden ml-1 text-sm font-medium">Hapus</span>
                                     </button>
+                                </div>
+
+                                {{-- Real-time Conflict Alert --}}
+                                <div x-show="row.error" class="md:col-span-12 text-xs font-semibold text-red-650 bg-red-50/70 border border-red-100 rounded-lg px-3 py-2 mt-1 flex items-center shadow-sm">
+                                    <svg class="w-4 h-4 mr-1.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    <span x-text="row.error"></span>
                                 </div>
                             </div>
                         </template>

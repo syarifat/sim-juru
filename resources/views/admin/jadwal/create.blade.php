@@ -12,7 +12,7 @@
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
              x-data="{
-                rows: [ { jam_ke_mulai: 1, jam_ke_selesai: 1, mata_pelajaran_id: '', guru_id: '' } ],
+                rows: [ { jam_ke_mulai: 1, jam_ke_selesai: 1, mata_pelajaran_id: '', guru_id: '', error: '' } ],
                 maxJam: {{ $maxJam }},
                 isJamDisabled(jam, currentIndex) {
                     jam = parseInt(jam);
@@ -49,10 +49,35 @@
                         alert('Semua jam pelajaran sudah terisi.');
                         return;
                     }
-                    this.rows.push({ jam_ke_mulai: nextJam, jam_ke_selesai: nextJam, mata_pelajaran_id: '', guru_id: '' });
+                    this.rows.push({ jam_ke_mulai: nextJam, jam_ke_selesai: nextJam, mata_pelajaran_id: '', guru_id: '', error: '' });
                 },
                 removeRow(index) {
                     this.rows.splice(index, 1);
+                },
+                checkRowBentrok(row, currentIndex) {
+                    let hari = document.getElementById('hari').value;
+                    let kelasId = document.getElementById('kelas_id').value;
+                    let taId = '{{ $activeTahunAjaran->id }}';
+                    
+                    if (!hari || !row.guru_id || !row.jam_ke_mulai || !row.jam_ke_selesai) {
+                        row.error = '';
+                        return;
+                    }
+                    
+                    let url = `{{ route('admin.jadwal.check-bentrok') }}?tahun_ajaran_id=${taId}&hari=${hari}&kelas_id=${kelasId}&guru_id=${row.guru_id}&jam_ke_mulai=${row.jam_ke_mulai}&jam_ke_selesai=${row.jam_ke_selesai}`;
+                    
+                    fetch(url)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.bentrok) {
+                                row.error = data.pesan;
+                            } else {
+                                row.error = '';
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
                 }
              }">
              
@@ -80,7 +105,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="hari" class="block text-sm font-semibold text-gray-700 mb-1">Hari <span class="text-red-500">*</span></label>
-                            <select name="hari" id="hari" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
+                            <select name="hari" id="hari" @change="rows.forEach((r, idx) => checkRowBentrok(r, idx))" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
                                 <option value="">-- Pilih Hari --</option>
                                 @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $hari)
                                     <option value="{{ $hari }}" {{ old('hari') == $hari ? 'selected' : '' }}>{{ $hari }}</option>
@@ -90,7 +115,7 @@
                         
                         <div>
                             <label for="kelas_id" class="block text-sm font-semibold text-gray-700 mb-1">Kelas <span class="text-red-500">*</span></label>
-                            <select name="kelas_id" id="kelas_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
+                            <select name="kelas_id" id="kelas_id" @change="rows.forEach((r, idx) => checkRowBentrok(r, idx))" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-shadow" required>
                                 <option value="">-- Pilih Kelas --</option>
                                 @foreach($kelases as $kelas)
                                     <option value="{{ $kelas->id }}" {{ old('kelas_id') == $kelas->id ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
@@ -122,7 +147,7 @@
                                     
                                     <div class="md:col-span-2 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Mulai</label>
-                                        <select x-bind:name="`jadwals[${index}][jam_ke_mulai]`" x-model="row.jam_ke_mulai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
+                                        <select x-bind:name="`jadwals[${index}][jam_ke_mulai]`" x-model="row.jam_ke_mulai" @change="checkRowBentrok(row, index)" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                             @for($i = 1; $i <= $maxJam; $i++)
                                                 @php
                                                     $jamObj = $jamPelajarans[$i] ?? null;
@@ -135,7 +160,7 @@
                                     
                                     <div class="md:col-span-2 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Jam Ke- Selesai</label>
-                                        <select x-bind:name="`jadwals[${index}][jam_ke_selesai]`" x-model="row.jam_ke_selesai" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
+                                        <select x-bind:name="`jadwals[${index}][jam_ke_selesai]`" x-model="row.jam_ke_selesai" @change="checkRowBentrok(row, index)" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                             @for($i = 1; $i <= $maxJam; $i++)
                                                 @php
                                                     $jamObj = $jamPelajarans[$i] ?? null;
@@ -158,7 +183,7 @@
 
                                     <div class="md:col-span-3 flex flex-col md:block">
                                         <label class="md:hidden text-xs font-semibold text-gray-500 uppercase mb-1">Guru Utama</label>
-                                        <select x-bind:name="`jadwals[${index}][guru_id]`" x-model="row.guru_id" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
+                                        <select x-bind:name="`jadwals[${index}][guru_id]`" x-model="row.guru_id" @change="checkRowBentrok(row, index)" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" required>
                                             <option value="">-- Pilih --</option>
                                             @foreach($gurus as $guru)
                                                 <option value="{{ $guru->id }}">{{ $guru->nama_lengkap }}</option>
@@ -172,6 +197,13 @@
                                             <span class="md:hidden ml-1 text-sm font-medium">Hapus</span>
                                         </button>
                                     </div>
+
+                                    {{-- Real-time Conflict Alert --}}
+                                    <div x-show="row.error" class="md:col-span-12 text-xs font-semibold text-red-650 bg-red-50/70 border border-red-100 rounded-lg px-3 py-2 mt-1 flex items-center shadow-sm">
+                                        <svg class="w-4 h-4 mr-1.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                        <span x-text="row.error"></span>
+                                    </div>
+
                                 </div>
                             </template>
                         </div>

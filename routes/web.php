@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/mapel/{mapel}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'updateMapel'])->name('mapel.update');
         Route::delete('/mapel/{mapel}', [\App\Http\Controllers\Admin\MasterAkademikController::class, 'destroyMapel'])->name('mapel.destroy');
         Route::resource('jam-pelajaran', \App\Http\Controllers\Admin\MasterJamPelajaranController::class)->parameters(['jam-pelajaran' => 'jam_pelajaran']);
+        Route::get('jadwal/check-bentrok', [\App\Http\Controllers\Admin\JadwalController::class, 'checkBentrok'])->name('jadwal.check-bentrok');
         Route::resource('jadwal', \App\Http\Controllers\Admin\JadwalController::class);
 
         // Guru Pengganti Routes
