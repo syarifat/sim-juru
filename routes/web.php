@@ -52,6 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('jurnal', [\App\Http\Controllers\Guru\JurnalController::class, 'index'])->name('jurnal.index');
         Route::get('jurnal/create/{jadwal}', [\App\Http\Controllers\Guru\JurnalController::class, 'create'])->name('jurnal.create');
         Route::post('jurnal', [\App\Http\Controllers\Guru\JurnalController::class, 'store'])->name('jurnal.store');
+        Route::get('jurnal/{jurnal}/edit', [\App\Http\Controllers\Guru\JurnalController::class, 'edit'])->name('jurnal.edit');
+        Route::put('jurnal/{jurnal}', [\App\Http\Controllers\Guru\JurnalController::class, 'update'])->name('jurnal.update');
         Route::get('riwayat-jurnal', [\App\Http\Controllers\Guru\JurnalController::class, 'riwayat'])->name('jurnal.riwayat');
     });
 

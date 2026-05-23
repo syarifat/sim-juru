@@ -96,9 +96,16 @@
                                             Isi Jurnal
                                         </a>
                                     @else
-                                        <button disabled class="w-full sm:w-auto px-6 py-2.5 bg-gray-100 text-gray-400 text-sm font-bold rounded-lg cursor-not-allowed text-center inline-flex items-center justify-center border border-gray-200">
-                                            Sudah Diisi
-                                        </button>
+                                        @if($jurnal->status_validasi === 'Revisi')
+                                            <a href="{{ route('guru.jurnal.edit', $jurnal) }}" class="w-full sm:w-auto px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-lg shadow-sm transition-colors text-center inline-flex items-center justify-center">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                                Perbaiki Jurnal
+                                            </a>
+                                        @else
+                                            <button disabled class="w-full sm:w-auto px-6 py-2.5 bg-gray-100 text-gray-400 text-sm font-bold rounded-lg cursor-not-allowed text-center inline-flex items-center justify-center border border-gray-200">
+                                                Sudah Diisi
+                                            </button>
+                                        @endif
                                     @endif
                                 @endif
                             </div>

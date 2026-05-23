@@ -77,6 +77,12 @@
                                                 <strong>Kepsek:</strong> {{ $jurnal->catatan_kepsek }}
                                             </div>
                                         @endif
+
+                                        @if($jurnal->status_validasi === 'Revisi')
+                                            <a href="{{ route('guru.jurnal.edit', $jurnal) }}" class="mt-2 w-full text-center px-3 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 border border-blue-200 rounded text-xs font-bold transition-colors">
+                                                Perbaiki Jurnal
+                                            </a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

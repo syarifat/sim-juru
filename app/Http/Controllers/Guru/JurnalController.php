@@ -138,6 +138,50 @@ class JurnalController extends Controller
                          ->with('success', 'Jurnal berhasil disimpan.');
     }
 
+    public function edit(JurnalGuru $jurnal)
+    {
+        $guruId = Auth::user()->guru->id;
+        
+        // Pastikan hanya guru pengisi yang bisa edit, dan statusnya Revisi
+        if ($jurnal->guru_pengisi_id !== $guruId) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        if ($jurnal->status_validasi !== 'Revisi') {
+            return redirect()->route('guru.jurnal.riwayat')->with('error', 'Hanya jurnal dengan status Revisi yang dapat diubah.');
+        }
+
+        $jadwal = $jurnal->jadwal;
+        $tanggal = $jurnal->tanggal_mengajar;
+        $jamPelajarans = MasterJamPelajaran::orderBy('jam_ke')->get()->keyBy('jam_ke');
+        
+        return view('guru.jurnal.edit', compact('jurnal', 'jadwal', 'tanggal', 'jamPelajarans'));
+    }
+
+    public function update(Request $request, JurnalGuru $jurnal)
+    {
+        $request->validate([
+            'materi_pembelajaran' => 'required|string',
+            'catatan_tambahan' => 'nullable|string',
+        ]);
+
+        $guruId = Auth::user()->guru->id;
+
+        if ($jurnal->guru_pengisi_id !== $guruId || $jurnal->status_validasi !== 'Revisi') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $jurnal->update([
+            'materi_pembelajaran' => $request->materi_pembelajaran,
+            'catatan_tambahan' => $request->catatan_tambahan,
+            'status_validasi' => 'Pending', // Kembalikan ke Pending setelah direvisi
+        ]);
+
+        // Redirect back to riwayat as it's the main place to see status
+        return redirect()->route('guru.jurnal.riwayat')
+                         ->with('success', 'Jurnal berhasil diperbarui dan dikirim ulang untuk validasi.');
+    }
+
     public function riwayat(Request $request)
     {
         $guruId = Auth::user()->guru->id ?? null;
