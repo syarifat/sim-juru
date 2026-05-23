@@ -57,6 +57,10 @@
             <svg class="{{ $iconClass }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             <span x-show="{{ $textShowCondition }}">Riwayat Jurnal</span>
         </a>
+        <a href="{{ route('guru.jadwal.saya') }}" class="{{ $linkClass }} {{ request()->routeIs('guru.jadwal.saya') ? 'bg-emerald-600 text-white' : '' }}">
+            <svg class="{{ $iconClass }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <span x-show="{{ $textShowCondition }}">Jadwal Saya</span>
+        </a>
     @endif
 
     @if($role === 'Kepala_Sekolah')
@@ -70,9 +74,13 @@
 
     @if(in_array($role, ['Admin', 'Kepala_Sekolah']))
         <div x-show="{{ $textShowCondition }}" class="pt-5 pb-2 px-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Rekapitulasi</div>
-        <a href="{{ route('admin.laporan.index') }}" class="{{ $linkClass }} {{ request()->routeIs('admin.laporan.*') ? 'bg-emerald-600 text-white' : '' }}">
+        <a href="{{ route('admin.laporan.index') }}" class="{{ $linkClass }} {{ request()->routeIs('admin.laporan.index') ? 'bg-emerald-600 text-white' : '' }}">
             <svg class="{{ $iconClass }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
             <span x-show="{{ $textShowCondition }}">Laporan Jurnal</span>
+        </a>
+        <a href="{{ route('admin.laporan.jadwal.index') }}" class="{{ $linkClass }} {{ request()->routeIs('admin.laporan.jadwal.index') ? 'bg-emerald-600 text-white' : '' }}">
+            <svg class="{{ $iconClass }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            <span x-show="{{ $textShowCondition }}">Laporan Jadwal</span>
         </a>
     @endif
 

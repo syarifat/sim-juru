@@ -49,6 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Laporan Jurnal - bisa diakses Admin dan Kepala Sekolah
     Route::middleware(['role:Admin,Kepala_Sekolah'])->group(function () {
         Route::get('admin/laporan-jurnal', [\App\Http\Controllers\Admin\LaporanController::class, 'index'])->name('admin.laporan.index');
+        Route::get('admin/laporan-jadwal', [\App\Http\Controllers\Admin\LaporanJadwalController::class, 'index'])->name('admin.laporan.jadwal.index');
     });
 
     // Khusus Role Guru
@@ -60,6 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('jurnal/{jurnal}/edit', [\App\Http\Controllers\Guru\JurnalController::class, 'edit'])->name('jurnal.edit');
         Route::put('jurnal/{jurnal}', [\App\Http\Controllers\Guru\JurnalController::class, 'update'])->name('jurnal.update');
         Route::get('riwayat-jurnal', [\App\Http\Controllers\Guru\JurnalController::class, 'riwayat'])->name('jurnal.riwayat');
+        Route::get('jadwal-saya', [\App\Http\Controllers\Guru\JadwalSayaController::class, 'index'])->name('jadwal.saya');
     });
 
     // Khusus Role Kepala Sekolah
