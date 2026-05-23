@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ===== CUSTOM SCROLLBAR ===== */
+/* Sidebar scrollbar - slim & dark themed */
+aside ::-webkit-scrollbar {
+    width: 4px;
+}
+aside ::-webkit-scrollbar-track {
+    background: transparent;
+}
+aside ::-webkit-scrollbar-thumb {
+    background: #10b981; /* emerald-500 */
+    border-radius: 99px;
+}
+aside ::-webkit-scrollbar-thumb:hover {
+    background: #34d399; /* emerald-400 */
+}
+
+/* Main content scrollbar - slim & light */
+main::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+main::-webkit-scrollbar-track {
+    background: #f1f5f9; /* slate-100 */
+    border-radius: 99px;
+}
+main::-webkit-scrollbar-thumb {
+    background: #a7f3d0; /* emerald-200 */
+    border-radius: 99px;
+}
+main::-webkit-scrollbar-thumb:hover {
+    background: #6ee7b7; /* emerald-300 */
+}
+
+/* Firefox scrollbar */
+aside * {
+    scrollbar-width: thin;
+    scrollbar-color: #10b981 transparent;
+}
+main {
+    scrollbar-width: thin;
+    scrollbar-color: #a7f3d0 #f1f5f9;
+}
+
+/* AlpineJS x-cloak */
+[x-cloak] { display: none !important; }
