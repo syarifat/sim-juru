@@ -76,17 +76,5 @@
         </a>
     @endif
 
-    <div class="mt-8 border-t border-slate-800 pt-4 px-2 pb-6">
-        <div x-show="{{ $textShowCondition }}" class="px-3 mb-4">
-            <p class="text-sm font-semibold text-white">{{ Auth::user()->username ?? 'Guest' }}</p>
-            <p class="text-xs text-emerald-400 font-medium">{{ str_replace('_', ' ', Auth::user()->role ?? '') }}</p>
-        </div>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="w-full text-left group flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-red-900 text-red-400 transition-colors mx-auto" :class="!desktopSidebarOpen && !mobileMenuOpen ? 'justify-center' : ''">
-                <svg class="{{ $iconClass }} m-0" :class="!desktopSidebarOpen && !mobileMenuOpen ? 'mr-0' : 'mr-3'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                <span x-show="{{ $textShowCondition }}">Logout</span>
-            </button>
-        </form>
-    </div>
 </nav>
+
